@@ -1,0 +1,50 @@
+---
+alwaysApply: false
+globs: *.tsx
+---
+
+When writing React components, always use function notation instead of const notation, like this:
+
+```tsx
+const MyComponent = () => {
+  return <div>Hello, world!</div>;
+}; // BAD
+
+function MyComponent() {
+  return <div>Hello, world!</div>;
+} // GOOD
+```
+
+Formally define props as interfaces, like this:
+
+```tsx
+interface MyComponentProps {
+  name: string;
+}
+
+function MyComponent({ name }: MyComponentProps) {
+  return <div>Hello, {name}!</div>;
+} // GOOD
+```
+
+Always pass through props to the component, like this:
+
+```tsx
+import { cn } from "slate-ui";
+
+interface MyComponentProps extends HTMLProps<HTMLDivElement> {
+  name: string;
+}
+
+function MyComponent({ name, className, ...props }: MyComponentProps) {
+  return (
+    <div className={cn(className, "...")} {...props}>
+      Hello, {name}!
+    </div>
+  );
+} // GOOD
+```
+
+Always try and use `slate-ui` components when possible. When writing new React code try not to style anything, and keep the spacing very simple.
+
+Components should not be use-case specific. They should be generic and reusable.

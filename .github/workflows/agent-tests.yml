@@ -1,0 +1,49 @@
+name: Agent Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-agent:
+    name: test-agent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "agent/.python-version"
+
+      - name: Install FFmpeg 7 dev libraries (for av)
+        run: |
+          sudo add-apt-repository -y ppa:ubuntuhandbook1/ffmpeg7
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libavfilter-dev libswscale-dev libswresample-dev pkg-config
+
+      - name: Install Agent dependencies
+        run: uv sync
+        working-directory: agent
+
+      - name: Run Agent tests
+        run: |
+          echo "🧪 Running Agent tests..."
+          uv run pytest -v --tb=short
+          echo "✅ Agent tests completed!"
+        working-directory: agent
+        env:
+          PYTHONPATH: src
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-test-results
+          path: agent/.pytest_cache/
+          retention-days: 7

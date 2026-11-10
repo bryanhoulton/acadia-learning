@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) - Deferred -->
+    <script>
+      // Defer Google Analytics to not block initial render
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          var script = document.createElement("script");
+          script.async = true;
+          script.src =
+            "https://www.googletagmanager.com/gtag/js?id=AW-17782996886";
+          document.head.appendChild(script);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          window.gtag = gtag;
+          gtag("js", new Date());
+          gtag("config", "AW-17782996886");
+        }, 1000);
+      });
+    </script>
+    <script>
+      // Defer Meta Pixel loading
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          !(function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+              n.callMethod
+                ? n.callMethod.apply(n, arguments)
+                : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = "2.0";
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+          })(
+            window,
+            document,
+            "script",
+            "https://connect.facebook.net/en_US/fbevents.js"
+          );
+          fbq("init", "735061775558303");
+          fbq("track", "PageView");
+        }, 2000);
+      });
+    </script>
+    <!-- Nextdoor Pixel Code - Deferred -->
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          !(function (e, n) {
+            var t, p;
+            e.ndp ||
+              (((t = e.ndp =
+                function () {
+                  t.handleRequest
+                    ? t.handleRequest.apply(t, arguments)
+                    : t.queue.push(arguments);
+                }).queue = []),
+              (t.v = 1),
+              ((p = n.createElement((e = "script"))).async = !0),
+              (p.src =
+                "https://ads.nextdoor.com/public/pixel/ndp.js?id=52c1e1ab-a770-4e27-bbf8-51a7f1b1eb17"),
+              (n = n.getElementsByTagName(e)[0]).parentNode.insertBefore(p, n));
+          })(window, document);
+          ndp("init", "52c1e1ab-a770-4e27-bbf8-51a7f1b1eb17", {});
+          ndp("track", "PAGE_VIEW");
+        }, 1500);
+      });
+    </script>
+    <!-- End Nextdoor Pixel Code -->
+    <!-- Beehiiv Pixel - Deferred -->
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          !(function (f, b, e, h, i, v) {
+            if (f.bhpx) return;
+            i = f.bhpx = function () {
+              i.callMethod
+                ? i.callMethod.apply(i, arguments)
+                : i.queue.push(arguments);
+            };
+            if (!f._bhpx) f._bhpx = i;
+            i.push = i;
+            i.loaded = !0;
+            i.version = "1.0";
+            i.queue = [];
+            v = b.createElement(e);
+            v.async = !0;
+            v.type = "module";
+            v.src =
+              "https://beehiiv-adnetwork-production.s3.amazonaws.com/pixel-v2.js";
+            h = b.getElementsByTagName(e)[0];
+            h.parentNode.insertBefore(v, h);
+          })(window, document, "script");
+          bhpx("init", "2042cd67-c59f-4261-a60b-fbcd41365b2c", {
+            trackClientNavigation: true,
+            debug: false,
+          });
+          bhpx("track", "pageview");
+        }, 2500);
+      });
+    </script>
+    <!-- End Beehiiv Pixel -->
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Structured data for site name in search results -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Acadia Learning",
+        "url": "https://acadialearning.org"
+      }
+    </script>
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load fonts async to avoid render blocking -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <meta property="og:title" content="Acadia Learning — K‑8 Math Tutoring" />
+    <meta
+      property="og:description"
+      content="1-on-1 AI math tutoring for K-8 students. Build real confidence in math."
+    />
+    <meta property="og:image" content="/og.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Acadia is a 1-on-1 AI math tutor for K-8 students. Personalized sessions that build real confidence in math — from multiplication to pre-algebra."
+    />
+    <title>Acadia Learning — K‑8 Math Tutoring That Builds Confidence</title>
+  </head>
+  <body>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://flask.nextdoor.com/pixel?pid=52c1e1ab-a770-4e27-bbf8-51a7f1b1eb17&ev=PAGE_VIEW&noscript=1"
+      />
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

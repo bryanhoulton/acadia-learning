@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+We write very DRY code. When writing code, you should always ask yourself if you can extract a function or component to avoid duplication.
+
+This rule does not apply for inline JS functions like map, filter, etc.

@@ -1,0 +1,91 @@
+repos:
+  - repo: local
+    hooks:
+      - id: portal-lint
+        name: Run ESLint in portal
+        entry: bash
+        args:
+          - -c
+          - |
+            set -e
+            ROOT_DIR=$(pwd)
+
+            echo "🔍 Running ESLint in portal..."
+            cd "$ROOT_DIR/portal"
+            yarn lint
+
+            echo "✅ Portal lint completed!"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+        types_or: [javascript, jsx, ts, tsx]
+        description: Run ESLint in the portal directory
+      - id: ruff-check
+        name: Run ruff in each directory
+        entry: bash
+        args:
+          - -c
+          - |
+            set -e
+            ROOT_DIR=$(pwd)
+
+            # Run ruff in each Python project directory
+            for dir in api agent; do
+              echo "🔍 Running ruff in $dir..."
+              cd "$ROOT_DIR/$dir"
+              uv run ruff check --fix .
+              uv run ruff format .
+            done
+
+            echo "✅ Ruff checks completed!"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+        types: [python]
+        description: Run ruff check and format in each Python project directory
+      - id: check-requirements
+        name: Check Requirements are up to date
+        entry: bash
+        args:
+          - -c
+          - |
+            set -e
+            ROOT_DIR=$(pwd)
+
+            # Check API requirements
+            echo "🔍 Checking API requirements..."
+            cd "$ROOT_DIR/api"
+            unset VIRTUAL_ENV
+            uv sync
+            uv pip freeze > updated-requirements.txt
+            if diff requirements.txt updated-requirements.txt > /dev/null 2>&1; then
+              echo "✅ API requirements are up to date"
+              rm -f updated-requirements.txt
+            else
+              echo "❌ API requirements are out of sync. Please run: cd api && uv pip freeze > requirements.txt"
+              rm -f updated-requirements.txt
+              exit 1
+            fi
+
+            # Check Agent requirements  
+            echo "🔍 Checking Agent requirements..."
+            cd "$ROOT_DIR/agent"
+            # Unset virtual environment to let uv detect the correct one
+            unset VIRTUAL_ENV
+            uv sync
+            uv pip freeze > updated-requirements.txt
+            if diff requirements.txt updated-requirements.txt > /dev/null 2>&1; then
+              echo "✅ Agent requirements are up to date"
+              rm -f updated-requirements.txt
+            else
+              echo "❌ Agent requirements are out of sync. Please run: cd agent && uv pip freeze > requirements.txt"
+              rm -f updated-requirements.txt
+              exit 1
+            fi
+
+            echo "✅ All requirements are up to date!"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+        types: [python]
+        description: Check that requirements.txt files are up to date with pyproject.toml dependencies

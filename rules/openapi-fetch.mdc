@@ -1,0 +1,14 @@
+---
+description: When using openapi-fetch to generate API clients.
+alwaysApply: false
+---
+
+You should use openapi-fetch to generate API clients. There is a script in the root of the repo to generate the clients, 'generate.sh'. Try to avoid using fetch directly and always use the generated client.
+
+You can regenerate API types and blocks by running the following command:
+
+```bash
+./generate.sh
+```
+
+in the root of the repo.

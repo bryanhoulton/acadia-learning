@@ -1,0 +1,59 @@
+[project]
+name = "agent"
+version = "0.1.0"
+description = "AI Tutor Agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "emoji>=2.14.1",
+    "httpx>=0.28.0",
+    # PyAV 14.3+ publishes sdist-only; pin a release with manylinux wheels (e.g. Render builds).
+    "av==14.2.0",
+    "livekit-agents[deepgram,elevenlabs,cartesia,groq]==1.2.11",
+    "livekit-plugins-noise-cancellation~=0.2",
+    "pytest>=8.4.1",
+    "python-dotenv>=1.1.0",
+    "requests>=2.31.0",
+    "requests-mock>=1.11.0",
+    "ruff>=0.1.0",
+    "mypy>=1.17.0",
+    "datamodel-code-generator>=0.31.2",
+    "pydantic>=2.11.7",
+    "anthropic>=0.55.0",
+    "posthog>=6.7.6",
+    "onnxruntime>=1.23.0",
+    "transformers>=4.56.2",
+    "scipy>=1.16.2",
+    "httpx>=0.28.1",
+    "deepgram-sdk>=5.2.0",
+    "sounddevice>=0.5.2",
+    "pytest-asyncio>=1.3.0",
+    "google-genai>=1.55.0",
+    "jsonschema>=4.26.0",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ARG", "SIM108", "SIM105", "B017", "F841", "E722", "B904"]
+"*/tests/*" = ["ARG", "SIM108", "SIM105", "B017", "F841", "E722", "B904"]
+"test_*" = ["ARG", "SIM108", "SIM105", "B017", "F841", "E722", "B904"]
+"*test*" = ["ARG", "SIM108", "SIM105", "B017", "F841", "E722", "B904"]
+"__init__.py" = ["F401"]
+"settings.py" = ["F405"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v"
+# Exclude agent main module to prevent hanging during test discovery
+collect_ignore = ["src/agent/main.py", "src/agent/groq.py"]
+# Configure pytest-asyncio
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]

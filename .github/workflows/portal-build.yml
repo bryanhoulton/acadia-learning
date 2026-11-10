@@ -1,0 +1,57 @@
+name: Portal Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  portal-build:
+    name: portal-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+          cache-dependency-path: portal/yarn.lock
+
+      - name: Install Portal dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: portal
+
+      - name: Lint Portal
+        run: |
+          echo "🔍 Linting Portal code..."
+          yarn lint
+          echo "✅ Portal linting completed!"
+        working-directory: portal
+
+      - name: Build Portal
+        run: |
+          echo "🏗️ Building Portal frontend..."
+          yarn build
+          echo "✅ Portal build completed!"
+        working-directory: portal
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-build-dist
+          path: portal/dist/
+          retention-days: 7
+
+      - name: Check build output
+        run: |
+          echo "📦 Build output summary:"
+          ls -la dist/
+          echo "📊 Build size analysis:"
+          du -sh dist/
+          echo "🎯 Key files:"
+          find dist/ -name "*.js" -o -name "*.css" | head -10
+        working-directory: portal

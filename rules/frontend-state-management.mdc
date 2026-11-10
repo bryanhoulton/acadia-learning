@@ -1,0 +1,10 @@
+---
+description: Used for zustand or React state management.
+alwaysApply: false
+---
+
+When doing state management in the frontend, you should segment stores which backend models they represent. These are resources store.
+
+With resource stores, load the data and provide methods to refresh data in the store on demand. Then, compute slices of the data as needed for display. For unloaded stores, when the user requests the data from the store, check if it is loaded. If it isn't refresh the store.
+
+You should also build generalizable state stores for common state management patterns, like onboarding, if needed.

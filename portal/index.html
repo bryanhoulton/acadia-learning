@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-17782996886"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("js", new Date());
+
+      gtag("config", "AW-17782996886");
+    </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1"
+    />
+    <meta property="og:title" content="Acadia Learning" />
+    <meta
+      property="og:description"
+      content="Pairing every student with a teacher who brings out their best."
+    />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:url" content="https://app.acadialearning.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:logo" content="/favicon.svg" />
+    <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=%VITE_DESMOS_API_KEY%"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      (function () {
+        if (typeof window === "undefined") return;
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var fbpParam = params.get("fbp");
+          var fbclidParam = params.get("fbclid");
+          var hostParts = window.location.hostname.split(".");
+          var rootDomain =
+            hostParts.length > 1 ? hostParts.slice(-2).join(".") : hostParts[0];
+          var cookieExpires = new Date(Date.now() + 15552000000).toUTCString();
+
+          var setFbpCookie = function (value) {
+            var cookie =
+              "_fbp=" +
+              value +
+              ";path=/;expires=" +
+              cookieExpires +
+              ";SameSite=None;Secure";
+
+            if (hostParts.length > 1) {
+              cookie += ";domain=." + rootDomain;
+            }
+
+            document.cookie = cookie;
+          };
+
+          if (fbpParam) {
+            setFbpCookie(fbpParam);
+            sessionStorage.setItem("fbp", fbpParam);
+          } else {
+            var storedFbp = sessionStorage.getItem("fbp");
+            if (storedFbp && document.cookie.indexOf("_fbp=") === -1) {
+              setFbpCookie(storedFbp);
+            }
+          }
+
+          if (fbclidParam) {
+            sessionStorage.setItem("fbclid", fbclidParam);
+          }
+        } catch (error) {
+          console.warn("Meta Pixel handoff failed", error);
+        }
+      })();
+    </script>
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("set", "autoConfig", "false", "735061775558303");
+      fbq("init", "735061775558303");
+      fbq("track", "PageView");
+    </script>
+    <!-- Nextdoor Pixel Code -->
+    <script type="text/javascript">
+      !(function (e, n) {
+        var t, p;
+        e.ndp ||
+          (((t = e.ndp =
+            function () {
+              t.handleRequest
+                ? t.handleRequest.apply(t, arguments)
+                : t.queue.push(arguments);
+            }).queue = []),
+          (t.v = 1),
+          ((p = n.createElement((e = "script"))).async = !0),
+          (p.src =
+            "https://ads.nextdoor.com/public/pixel/ndp.js?id=52c1e1ab-a770-4e27-bbf8-51a7f1b1eb17"),
+          (n = n.getElementsByTagName(e)[0]).parentNode.insertBefore(p, n));
+      })(window, document);
+      ndp("init", "52c1e1ab-a770-4e27-bbf8-51a7f1b1eb17", {});
+      ndp("track", "PAGE_VIEW");
+    </script>
+    <!-- End Nextdoor Pixel Code -->
+    <!-- Beehiiv Pixel -->
+    <script>
+      !function (f, b, e, h, i, v) {
+        if (f.bhpx) return;
+        i = f.bhpx = function () {
+          i.callMethod ?
+            i.callMethod.apply(i, arguments) : i.queue.push(arguments)
+        };
+        if (!f._bhpx) f._bhpx = i;
+        i.push = i; i.loaded = !0; i.version = '1.0';
+        i.queue = [];
+
+        // Load the pixel script
+        v = b.createElement(e); v.async = !0;
+        v.type = 'module';
+        v.src = 'https://beehiiv-adnetwork-production.s3.amazonaws.com/pixel-v2.js';
+        h = b.getElementsByTagName(e)[0];
+        h.parentNode.insertBefore(v, h);
+      }(window, document, 'script');
+
+      // Initialize the pixel script
+      // Replace PIXEL_ID with value from Advertiser Portal
+      bhpx('init','PIXEL_ID', {
+        trackClientNavigation: true,
+        debug: false
+      });
+
+      // Send the initial pageview event
+      bhpx('track', 'pageview');
+    </script>
+    <!-- End Beehiiv Pixel -->
+
+    <title>Acadia Learning</title>
+  </head>
+  <body>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=735061775558303&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://flask.nextdoor.com/pixel?pid=52c1e1ab-a770-4e27-bbf8-51a7f1b1eb17&ev=PAGE_VIEW&noscript=1"
+      />
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

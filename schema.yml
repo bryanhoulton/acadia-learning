@@ -1,0 +1,6866 @@
+openapi: 3.0.3
+info:
+  title: Entity API
+  version: 1.0.0
+paths:
+  /api/entities/annotations/:
+    get:
+      operationId: entities_annotations_list
+      description: |-
+        ViewSet for creating and managing session annotations.
+        Requires admin authentication.
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annotation'
+          description: ''
+    post:
+      operationId: entities_annotations_create
+      description: |-
+        ViewSet for creating and managing session annotations.
+        Requires admin authentication.
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnnotationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AnnotationRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+          description: ''
+  /api/entities/annotations/{id}/:
+    get:
+      operationId: entities_annotations_retrieve
+      description: |-
+        ViewSet for creating and managing session annotations.
+        Requires admin authentication.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Annotation.
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+          description: ''
+    put:
+      operationId: entities_annotations_update
+      description: |-
+        ViewSet for creating and managing session annotations.
+        Requires admin authentication.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Annotation.
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnnotationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AnnotationRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+          description: ''
+    patch:
+      operationId: entities_annotations_partial_update
+      description: |-
+        ViewSet for creating and managing session annotations.
+        Requires admin authentication.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Annotation.
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAnnotationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAnnotationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAnnotationRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+          description: ''
+    delete:
+      operationId: entities_annotations_destroy
+      description: |-
+        ViewSet for creating and managing session annotations.
+        Requires admin authentication.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Annotation.
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/entities/control/:
+    get:
+      operationId: entities_control_list
+      description: List all entities for admin selection.
+      parameters:
+      - in: query
+        name: human_controlled
+        schema:
+          type: string
+        description: Filter by human_controlled status (true/false)
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityListResponse'
+          description: ''
+  /api/entities/control/{entity_id}/:
+    get:
+      operationId: entities_control_retrieve
+      description: Get entity context including memory, inbox status, and available
+        tools.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityContextResponse'
+          description: ''
+  /api/entities/control/{entity_id}/documents/:
+    get:
+      operationId: entities_control_documents_retrieve
+      description: List and create documents for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Max documents to return (default 50)
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: Offset for pagination (default 0)
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityDocumentsListResponse'
+          description: ''
+        '400':
+          description: Documents adapter not available
+    post:
+      operationId: entities_control_documents_create
+      description: List and create documents for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityDocumentCreateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityDocumentCreateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityDocumentCreateRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityDocumentCreateResponse'
+          description: ''
+        '400':
+          description: Bad request or documents adapter not available
+  /api/entities/control/{entity_id}/documents/{document_id}/:
+    put:
+      operationId: entities_control_documents_update
+      description: Update and delete documents for entity.
+      parameters:
+      - in: path
+        name: document_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityDocumentUpdateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityDocumentUpdateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityDocumentUpdateRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityDocumentUpdateResponse'
+          description: ''
+        '400':
+          description: Bad request or documents adapter not available
+    delete:
+      operationId: entities_control_documents_destroy
+      description: Update and delete documents for entity.
+      parameters:
+      - in: path
+        name: document_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityDocumentDeleteResponse'
+          description: ''
+        '400':
+          description: Documents adapter not available
+  /api/entities/control/{entity_id}/email/reply/:
+    post:
+      operationId: entities_control_email_reply_create
+      description: Reply to email as entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityEmailReplyRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityEmailReplyRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityEmailReplyRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEmailReplyResponse'
+          description: ''
+        '400':
+          description: Bad request or email adapter not available
+  /api/entities/control/{entity_id}/email/send/:
+    post:
+      operationId: entities_control_email_send_create
+      description: Send new email as entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityEmailSendRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityEmailSendRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityEmailSendRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEmailSendResponse'
+          description: ''
+        '400':
+          description: Bad request or email adapter not available
+  /api/entities/control/{entity_id}/email/threads/:
+    get:
+      operationId: entities_control_email_threads_retrieve
+      description: List email threads for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Max threads to return (default 10)
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEmailThreadsResponse'
+          description: ''
+        '400':
+          description: Email adapter not available
+  /api/entities/control/{entity_id}/email/threads/{thread_id}/:
+    get:
+      operationId: entities_control_email_threads_retrieve_2
+      description: Get email thread detail.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: thread_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEmailThreadDetailResponse'
+          description: ''
+        '400':
+          description: Email adapter not available
+  /api/entities/control/{entity_id}/execute/:
+    post:
+      operationId: entities_control_execute_create
+      description: Execute a tool as the entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityExecuteToolRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityExecuteToolRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityExecuteToolRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityExecuteToolResponse'
+          description: ''
+        '400':
+          description: Bad request - tool_name required or tool not found
+  /api/entities/control/{entity_id}/goals/:
+    get:
+      operationId: entities_control_goals_retrieve
+      description: List and create goals for entity.
+      parameters:
+      - in: query
+        name: end
+        schema:
+          type: string
+        description: End date filter (ISO format)
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: start
+        schema:
+          type: string
+        description: Start date filter (ISO format)
+      - in: query
+        name: status
+        schema:
+          type: string
+        description: Goal status filter
+      - in: query
+        name: user_profile_id
+        schema:
+          type: string
+        description: Filter by user profile ID
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityGoalsListResponse'
+          description: ''
+        '400':
+          description: Goals not available
+    post:
+      operationId: entities_control_goals_create
+      description: List and create goals for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityGoalCreateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityGoalCreateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityGoalCreateRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityGoalCreateResponse'
+          description: ''
+        '400':
+          description: Bad request or goals not available
+  /api/entities/control/{entity_id}/goals/{goal_id}/:
+    put:
+      operationId: entities_control_goals_update
+      description: Update and delete goals for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: goal_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityGoalUpdateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityGoalUpdateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityGoalUpdateRequestRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityGoalUpdateResponse'
+          description: ''
+        '400':
+          description: Goals not available
+    delete:
+      operationId: entities_control_goals_destroy
+      description: Update and delete goals for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: goal_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityGoalDeleteResponse'
+          description: ''
+        '400':
+          description: Goals not available
+  /api/entities/control/{entity_id}/profiles/:
+    get:
+      operationId: entities_control_profiles_retrieve
+      description: List user profiles for entity's account.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityUserProfilesResponse'
+          description: ''
+  /api/entities/control/{entity_id}/sms/:
+    get:
+      operationId: entities_control_sms_retrieve
+      description: List SMS messages for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Max messages to return (default 100)
+      - in: query
+        name: user_profile_id
+        schema:
+          type: string
+        description: Filter by user profile ID
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitySMSListResponse'
+          description: ''
+        '400':
+          description: SMS adapter not available
+  /api/entities/control/{entity_id}/sms/react/:
+    post:
+      operationId: entities_control_sms_react_create
+      description: React to SMS message as entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntitySMSReactRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntitySMSReactRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntitySMSReactRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitySMSReactResponse'
+          description: ''
+        '400':
+          description: Bad request or SMS react tool not available
+  /api/entities/control/{entity_id}/sms/send/:
+    post:
+      operationId: entities_control_sms_send_create
+      description: Send SMS as entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntitySMSSendRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntitySMSSendRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntitySMSSendRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitySMSSendResponse'
+          description: ''
+        '400':
+          description: Bad request or SMS adapter not available
+  /api/entities/control/{entity_id}/tasks/:
+    get:
+      operationId: entities_control_tasks_retrieve
+      description: List and create tasks for entity.
+      parameters:
+      - in: query
+        name: end
+        schema:
+          type: string
+        description: End date filter (ISO format)
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: start
+        schema:
+          type: string
+        description: Start date filter (ISO format)
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTasksListResponse'
+          description: ''
+        '400':
+          description: Tasks not available
+    post:
+      operationId: entities_control_tasks_create
+      description: List and create tasks for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityTaskCreateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityTaskCreateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityTaskCreateRequestRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTaskCreateResponse'
+          description: ''
+        '400':
+          description: Bad request or tasks not available
+  /api/entities/control/{entity_id}/tasks/{task_id}/:
+    put:
+      operationId: entities_control_tasks_update
+      description: Update and delete tasks for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: task_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityTaskUpdateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityTaskUpdateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityTaskUpdateRequestRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTaskUpdateResponse'
+          description: ''
+        '400':
+          description: Tasks not available
+    delete:
+      operationId: entities_control_tasks_destroy
+      description: Update and delete tasks for entity.
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: task_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTaskDeleteResponse'
+          description: ''
+        '400':
+          description: Tasks not available
+  /api/entities/control/{entity_id}/timeline/:
+    get:
+      operationId: entities_control_timeline_retrieve
+      description: Return a unified timeline of user-facing events for an entity.
+      parameters:
+      - in: query
+        name: days
+        schema:
+          type: integer
+        description: 'Number of past days to include (default: 90)'
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTimelineResponse'
+          description: ''
+  /api/entities/documents/:
+    get:
+      operationId: entities_documents_list
+      description: |-
+        View to handle entity documents.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      tags:
+      - entities
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+          description: ''
+    post:
+      operationId: entities_documents_create
+      description: |-
+        View to handle entity documents.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
+  /api/entities/documents/{id}/:
+    get:
+      operationId: entities_documents_retrieve
+      description: |-
+        View to handle entity documents.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Document.
+        required: true
+      tags:
+      - entities
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
+    put:
+      operationId: entities_documents_update
+      description: |-
+        View to handle entity documents.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Document.
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
+    patch:
+      operationId: entities_documents_partial_update
+      description: |-
+        View to handle entity documents.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Document.
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDocumentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDocumentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDocumentRequest'
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
+    delete:
+      operationId: entities_documents_destroy
+      description: |-
+        View to handle entity documents.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Document.
+        required: true
+      tags:
+      - entities
+      security:
+      - EntityAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/entities/join-call/:
+    post:
+      operationId: entities_join_call_create
+      description: |-
+        View to handle entity joining a call.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityCallStateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityCallStateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityCallStateRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          description: Entity joined call
+  /api/entities/leave-call/:
+    post:
+      operationId: entities_leave_call_create
+      description: |-
+        View to handle entity leaving a call.
+        ENTITY-ONLY: Only autonomous agents can access this endpoint.
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityCallStateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityCallStateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityCallStateRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          description: Entity left call
+  /api/entities/memory/{entity_id}/:
+    get:
+      operationId: entities_memory_retrieve
+      description: Get entity memory by entity ID
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          description: Entity memory
+    post:
+      operationId: entities_memory_create
+      description: Update entity call memory by entity ID
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityMemoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EntityMemoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EntityMemoryRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          description: Entity memory updated
+  /api/entities/sessions/:
+    get:
+      operationId: entities_sessions_list
+      description: List sessions with pagination.
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number for pagination (starts at 1)
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+        description: 'Number of results per page (default: 20, max: 100)'
+      - in: query
+        name: processed_only
+        schema:
+          type: string
+        description: Filter to only processed sessions (true/false)
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search by session name, description, profile name, or room name
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaginatedSessionListResponse'
+          description: ''
+    post:
+      operationId: entities_sessions_create
+      description: |-
+        ViewSet for viewing and managing session recordings.
+        Requires admin authentication.
+
+        Supports:
+        - ?search=query - Search by session name, description, or profile name
+        - ?page=1&page_size=20 - Pagination
+        - ?processed_only=true - Filter to only processed sessions
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+  /api/entities/sessions/{id}/:
+    get:
+      operationId: entities_sessions_retrieve
+      description: |-
+        ViewSet for viewing and managing session recordings.
+        Requires admin authentication.
+
+        Supports:
+        - ?search=query - Search by session name, description, or profile name
+        - ?page=1&page_size=20 - Pagination
+        - ?processed_only=true - Filter to only processed sessions
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Session.
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+    put:
+      operationId: entities_sessions_update
+      description: |-
+        ViewSet for viewing and managing session recordings.
+        Requires admin authentication.
+
+        Supports:
+        - ?search=query - Search by session name, description, or profile name
+        - ?page=1&page_size=20 - Pagination
+        - ?processed_only=true - Filter to only processed sessions
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Session.
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+    patch:
+      operationId: entities_sessions_partial_update
+      description: |-
+        ViewSet for viewing and managing session recordings.
+        Requires admin authentication.
+
+        Supports:
+        - ?search=query - Search by session name, description, or profile name
+        - ?page=1&page_size=20 - Pagination
+        - ?processed_only=true - Filter to only processed sessions
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Session.
+        required: true
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSessionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSessionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSessionRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+    delete:
+      operationId: entities_sessions_destroy
+      description: |-
+        ViewSet for viewing and managing session recordings.
+        Requires admin authentication.
+
+        Supports:
+        - ?search=query - Search by session name, description, or profile name
+        - ?page=1&page_size=20 - Pagination
+        - ?processed_only=true - Filter to only processed sessions
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Session.
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/entities/sessions/{id}/rerun-gemini/:
+    post:
+      operationId: entities_sessions_rerun_gemini_create
+      description: Re-run Gemini processing for a session. Clears existing Gemini
+        annotations (non-grade) then reprocesses the recording.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Session.
+        required: true
+      tags:
+      - entities
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RerunGeminiResponse'
+          description: ''
+  /api/entities/sessions/merge/:
+    post:
+      operationId: entities_sessions_merge_create
+      description: Merge multiple sessions into the earliest one, moving annotations
+        and appending transcripts.
+      tags:
+      - entities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionMergeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SessionMergeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SessionMergeRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+  /api/lms/accounts/accounts/:
+    get:
+      operationId: lms_accounts_accounts_list
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+          description: ''
+    post:
+      operationId: lms_accounts_accounts_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+  /api/lms/accounts/accounts/{id}/:
+    get:
+      operationId: lms_accounts_accounts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this account.
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+    put:
+      operationId: lms_accounts_accounts_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this account.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+    patch:
+      operationId: lms_accounts_accounts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this account.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAccountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAccountRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAccountRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+    delete:
+      operationId: lms_accounts_accounts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this account.
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/lms/accounts/admin/accounts/:
+    get:
+      operationId: lms_accounts_admin_accounts_retrieve
+      description: List accounts with optional search filter
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number for pagination (starts at 1)
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+        description: 'Number of results per page (default: 20, max: 100)'
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search by phone number or profile name
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAccountListResponse'
+          description: ''
+  /api/lms/accounts/admin/accounts/{account_id}/ledger/:
+    get:
+      operationId: lms_accounts_admin_accounts_ledger_retrieve
+      description: Get the ledger for an account - combines SMS messages and sessions
+        sorted by time
+      parameters:
+      - in: path
+        name: account_id
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number for pagination (starts at 1)
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+        description: 'Number of results per page (default: 50, max: 200)'
+      - in: query
+        name: sort_order
+        schema:
+          type: string
+        description: 'Sort order: ''desc'' for newest first (default), ''asc'' for
+          oldest first'
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountLedgerResponse'
+          description: ''
+  /api/lms/accounts/admin/share-links/:
+    get:
+      operationId: lms_accounts_admin_share_links_list
+      description: List all share links created by the current admin
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LedgerShareLink'
+          description: ''
+    post:
+      operationId: lms_accounts_admin_share_links_create
+      description: Create a new share link for an account's ledger
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLedgerShareLinkRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateLedgerShareLinkRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateLedgerShareLinkRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerShareLink'
+          description: ''
+  /api/lms/accounts/admin/share-links/{link_id}/:
+    delete:
+      operationId: lms_accounts_admin_share_links_destroy
+      description: Delete a share link
+      parameters:
+      - in: path
+        name: link_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/lms/accounts/create-magic-link/:
+    post:
+      operationId: lms_accounts_create_magic_link_create
+      description: Create a one-time magic link token for cross-domain authentication
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMagicLinkRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateMagicLinkRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateMagicLinkRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMagicLinkResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/exchange-magic-link/:
+    post:
+      operationId: lms_accounts_exchange_magic_link_create
+      description: Exchange a magic link token for JWT access and refresh tokens
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeMagicLinkRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExchangeMagicLinkRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExchangeMagicLinkRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCodeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/initialize-entity/:
+    post:
+      operationId: lms_accounts_initialize_entity_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeEntityRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InitializeEntityRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InitializeEntityRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/profiles/:
+    get:
+      operationId: lms_accounts_profiles_list
+      description: ViewSet for managing UserProfile objects
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfile'
+          description: ''
+    post:
+      operationId: lms_accounts_profiles_create
+      description: ViewSet for managing UserProfile objects
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+  /api/lms/accounts/profiles/{id}/:
+    get:
+      operationId: lms_accounts_profiles_retrieve
+      description: ViewSet for managing UserProfile objects
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this User Profile.
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+    put:
+      operationId: lms_accounts_profiles_update
+      description: ViewSet for managing UserProfile objects
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this User Profile.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+    patch:
+      operationId: lms_accounts_profiles_partial_update
+      description: ViewSet for managing UserProfile objects
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this User Profile.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+    delete:
+      operationId: lms_accounts_profiles_destroy
+      description: ViewSet for managing UserProfile objects
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this User Profile.
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/lms/accounts/profiles/{profile_id}/report-cards/:
+    get:
+      operationId: lms_accounts_profiles_report_cards_list
+      description: List all report cards for a given profile
+      parameters:
+      - in: path
+        name: profile_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReportCard'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/profiles/{profile_id}/stats/:
+    get:
+      operationId: lms_accounts_profiles_stats_retrieve
+      description: Get learning stats for a student profile
+      parameters:
+      - in: path
+        name: profile_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileStats'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/profiles/{profile_id}/wrapped/{year}/:
+    get:
+      operationId: lms_accounts_profiles_wrapped_retrieve
+      description: Get Learning Wrapped data for a student profile
+      parameters:
+      - in: path
+        name: profile_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: year
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningWrapped'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/referral-info/{referral_code}/:
+    get:
+      operationId: lms_accounts_referral_info_retrieve
+      description: Get information about a referral code for display on the landing
+        page
+      parameters:
+      - in: path
+        name: referral_code
+        schema:
+          type: string
+        required: true
+      tags:
+      - lms
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferralInfoResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/report-cards/{uuid}/:
+    get:
+      operationId: lms_accounts_report_cards_retrieve
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+        required: true
+      tags:
+      - lms
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportCard'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/request-email-verification-code/:
+    post:
+      operationId: lms_accounts_request_email_verification_code_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestEmailVerificationCodeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestEmailVerificationCodeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestEmailVerificationCodeRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/request-support-auth/:
+    post:
+      operationId: lms_accounts_request_support_auth_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestSupportAuthRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestSupportAuthRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestSupportAuthRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/request-verification-code/:
+    post:
+      operationId: lms_accounts_request_verification_code_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestVerificationCodeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestVerificationCodeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestVerificationCodeRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestVerificationCodeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/revenuecat/webhook/:
+    post:
+      operationId: lms_accounts_revenuecat_webhook_create
+      description: |-
+        Handle RevenueCat webhook events for subscription updates.
+
+        RevenueCat sends webhooks for events like:
+        - INITIAL_PURCHASE: New subscription
+        - RENEWAL: Subscription renewed
+        - CANCELLATION: Subscription cancelled
+        - EXPIRATION: Subscription expired
+        - PRODUCT_CHANGE: User changed subscription tier
+        - BILLING_ISSUE: Payment failed
+
+        Docs: https://www.revenuecat.com/docs/integrations/webhooks
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/shared-ledger/{token}/:
+    get:
+      operationId: lms_accounts_shared_ledger_retrieve
+      description: Get the shared ledger for a given token
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number for pagination (starts at 1)
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+        description: 'Number of results per page (default: 50, max: 200)'
+      - in: query
+        name: sort_order
+        schema:
+          type: string
+        description: 'Sort order: ''desc'' for newest first (default), ''asc'' for
+          oldest first'
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - lms
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharedLedgerResponse'
+          description: ''
+  /api/lms/accounts/stripe/checkout-session/:
+    post:
+      operationId: lms_accounts_stripe_checkout_session_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeCheckoutSessionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StripeCheckoutSessionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StripeCheckoutSessionRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCheckoutSessionResponse'
+          description: ''
+  /api/lms/accounts/stripe/webhook/:
+    post:
+      operationId: lms_accounts_stripe_webhook_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeWebhookRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StripeWebhookRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StripeWebhookRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      - {}
+      responses:
+        '200':
+          description: Stripe webhook
+  /api/lms/accounts/token/refresh/:
+    post:
+      operationId: lms_accounts_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/lms/accounts/token/verify/:
+    post:
+      operationId: lms_accounts_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /api/lms/accounts/verify-code/:
+    post:
+      operationId: lms_accounts_verify_code_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCodeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyCodeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyCodeRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCodeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/verify-email-code/:
+    post:
+      operationId: lms_accounts_verify_email_code_create
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailCodeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailCodeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailCodeRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCodeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: ''
+  /api/lms/accounts/wrapped/:
+    get:
+      operationId: lms_accounts_wrapped_list
+      description: List all available Learning Wrapped for the current account's profiles
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LearningWrappedListItem'
+          description: ''
+  /api/lms/calendars/goals/:
+    get:
+      operationId: lms_calendars_goals_list
+      description: |-
+        ViewSet for managing goals.
+        Accessible by both entities and authenticated users.
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goal'
+          description: ''
+    post:
+      operationId: lms_calendars_goals_create
+      description: |-
+        ViewSet for managing goals.
+        Accessible by both entities and authenticated users.
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      - EntityAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+  /api/lms/calendars/goals/{id}/:
+    get:
+      operationId: lms_calendars_goals_retrieve
+      description: |-
+        ViewSet for managing goals.
+        Accessible by both entities and authenticated users.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+    put:
+      operationId: lms_calendars_goals_update
+      description: |-
+        ViewSet for managing goals.
+        Accessible by both entities and authenticated users.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+    patch:
+      operationId: lms_calendars_goals_partial_update
+      description: |-
+        ViewSet for managing goals.
+        Accessible by both entities and authenticated users.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGoalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGoalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGoalRequest'
+      security:
+      - AccountAuthentication: []
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+    delete:
+      operationId: lms_calendars_goals_destroy
+      description: |-
+        ViewSet for managing goals.
+        Accessible by both entities and authenticated users.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      - EntityAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/lms/calendars/tasks/:
+    get:
+      operationId: lms_calendars_tasks_list
+      description: |-
+        ViewSet for managing tasks.
+        Only accessible by entities (internal agent use only).
+      tags:
+      - lms
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+          description: ''
+    post:
+      operationId: lms_calendars_tasks_create
+      description: |-
+        ViewSet for managing tasks.
+        Only accessible by entities (internal agent use only).
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+  /api/lms/calendars/tasks/{id}/:
+    get:
+      operationId: lms_calendars_tasks_retrieve
+      description: |-
+        ViewSet for managing tasks.
+        Only accessible by entities (internal agent use only).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this task.
+        required: true
+      tags:
+      - lms
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    put:
+      operationId: lms_calendars_tasks_update
+      description: |-
+        ViewSet for managing tasks.
+        Only accessible by entities (internal agent use only).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this task.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    patch:
+      operationId: lms_calendars_tasks_partial_update
+      description: |-
+        ViewSet for managing tasks.
+        Only accessible by entities (internal agent use only).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this task.
+        required: true
+      tags:
+      - lms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskRequest'
+      security:
+      - EntityAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    delete:
+      operationId: lms_calendars_tasks_destroy
+      description: |-
+        ViewSet for managing tasks.
+        Only accessible by entities (internal agent use only).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this task.
+        required: true
+      tags:
+      - lms
+      security:
+      - EntityAuthentication: []
+      responses:
+        '204':
+          description: No response body
+  /api/lms/calendars/token/:
+    get:
+      operationId: lms_calendars_token_retrieve
+      description: Get a token for a room
+      summary: Get a token for a room
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/lms/sessions/active/:
+    get:
+      operationId: lms_sessions_active_retrieve
+      description: List all active LiveKit rooms (admin only)
+      summary: List active sessions
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/lms/sessions/shadow-token/:
+    get:
+      operationId: lms_sessions_shadow_token_retrieve
+      description: Generate a token to join a room as a shadow observer (admin only)
+      summary: Get shadow token
+      parameters:
+      - in: query
+        name: room
+        schema:
+          type: string
+        description: The LiveKit room name to join as shadow observer
+        required: true
+      tags:
+      - lms
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /api/tracing/entities/{entity_id}/traces/:
+    get:
+      operationId: tracing_entities_traces_retrieve
+      description: |-
+        List traces for an entity with pagination.
+
+        Query parameters:
+        - limit: Number of traces to return (default: 50, max: 100)
+        - offset: Number of traces to skip (default: 0)
+      parameters:
+      - in: path
+        name: entity_id
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of traces to return (default: 50, max: 100)'
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: 'Number of traces to skip (default: 0)'
+      tags:
+      - tracing
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTracesListResponse'
+          description: ''
+  /api/tracing/entities/list/:
+    get:
+      operationId: tracing_entities_list_list
+      description: |-
+        List entities for filter dropdown with optional server-side search.
+        Admin-only endpoint. Returns max 20 results.
+      parameters:
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search by name, phone, or profile name
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntitiesForFilterResponse'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/tracing/evals/:
+    post:
+      operationId: tracing_evals_create
+      description: |-
+        Create a new eval.
+        Admin-only endpoint.
+      tags:
+      - tracing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvalCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EvalCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EvalCreateRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eval'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/tracing/evals/{eval_id}/:
+    get:
+      operationId: tracing_evals_retrieve
+      description: Get a single eval.
+      parameters:
+      - in: path
+        name: eval_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eval'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/tracing/evals/{eval_id}/delete/:
+    delete:
+      operationId: tracing_evals_delete_destroy
+      description: Delete an eval.
+      parameters:
+      - in: path
+        name: eval_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '204':
+          description: Eval deleted successfully
+        '403':
+          description: Admin access required
+  /api/tracing/evals/{eval_id}/update/:
+    patch:
+      operationId: tracing_evals_update_partial_update
+      description: Update an eval.
+      parameters:
+      - in: path
+        name: eval_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEvalUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEvalUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEvalUpdateRequest'
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Eval'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/tracing/evals/categories/:
+    get:
+      operationId: tracing_evals_categories_retrieve
+      description: |-
+        List all unique eval categories.
+        Admin-only endpoint.
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvalCategoriesResponse'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/tracing/evals/list/:
+    get:
+      operationId: tracing_evals_list_retrieve
+      description: |-
+        List all evals with pagination and filtering.
+        Admin-only endpoint.
+
+        Query parameters:
+        - category: Filter by category
+        - search: Search by name or rubric (contains, case-insensitive)
+        - limit: Number of results per page (default: 50, max: 100)
+        - offset: Number of results to skip (default: 0)
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+        description: Filter by category
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of results per page (default: 50, max: 100)'
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: 'Number of results to skip (default: 0)'
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search by name or rubric (contains, case-insensitive)
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvalsListResponse'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/tracing/sessions/{session_id}/traces/:
+    get:
+      operationId: tracing_sessions_traces_retrieve
+      description: |-
+        List traces for a session with pagination.
+
+        Query parameters:
+        - limit: Number of traces to return (default: 10, max: 50)
+        - offset: Number of traces to skip (default: 0)
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of traces to return (default: 10, max: 50)'
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: 'Number of traces to skip (default: 0)'
+      - in: path
+        name: session_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionTracesListResponse'
+          description: ''
+  /api/tracing/spans/:
+    post:
+      operationId: tracing_spans_create
+      description: Create a new span.
+      tags:
+      - tracing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpanCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpanCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpanCreateRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+          description: ''
+  /api/tracing/spans/{span_id}/:
+    get:
+      operationId: tracing_spans_retrieve
+      description: Get a single span.
+      parameters:
+      - in: path
+        name: span_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+          description: ''
+  /api/tracing/spans/{span_id}/flag/:
+    post:
+      operationId: tracing_spans_flag_create
+      description: Flag a span as having incorrect transcription and provide correction.
+      parameters:
+      - in: path
+        name: span_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpanFlagRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpanFlagRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpanFlagRequest'
+        required: true
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+          description: ''
+  /api/tracing/spans/{span_id}/unflag/:
+    post:
+      operationId: tracing_spans_unflag_create
+      description: Remove flag from a span.
+      parameters:
+      - in: path
+        name: span_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+          description: ''
+  /api/tracing/spans/{span_id}/update/:
+    patch:
+      operationId: tracing_spans_update_partial_update
+      description: Update a span (set output, add metadata, end it).
+      parameters:
+      - in: path
+        name: span_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSpanUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSpanUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSpanUpdateRequest'
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+          description: ''
+  /api/tracing/traces/:
+    post:
+      operationId: tracing_traces_create
+      description: Create a new trace.
+      tags:
+      - tracing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraceCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TraceCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TraceCreateRequest'
+        required: true
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+          description: ''
+  /api/tracing/traces/{trace_id}/:
+    get:
+      operationId: tracing_traces_retrieve
+      description: |-
+        Get a trace with its spans (paginated).
+
+        Query parameters:
+        - limit: Number of spans to return (default: 100, max: 500)
+        - offset: Number of spans to skip (default: 0)
+        - include_audio: Whether to include audio_data in response (default: false)
+      parameters:
+      - in: query
+        name: include_audio
+        schema:
+          type: string
+        description: 'Whether to include audio_data in response (default: false)'
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of spans to return (default: 100, max: 500)'
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: 'Number of spans to skip (default: 0)'
+      - in: path
+        name: trace_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceDetail'
+          description: ''
+  /api/tracing/traces/{trace_id}/end/:
+    patch:
+      operationId: tracing_traces_end_partial_update
+      description: End a trace.
+      parameters:
+      - in: path
+        name: trace_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - EntityAuthentication: []
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+          description: ''
+  /api/tracing/traces/{trace_id}/timeline/:
+    get:
+      operationId: tracing_traces_timeline_retrieve
+      description: |-
+        Get a trace with minimal span data for timeline rendering.
+        Returns all spans with only positional fields (no text payloads).
+        Admin-only endpoint.
+      parameters:
+      - in: path
+        name: trace_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceTimelineResponse'
+          description: ''
+  /api/tracing/traces/list/:
+    get:
+      operationId: tracing_traces_list_retrieve
+      description: |-
+        List all traces with pagination and filtering.
+        Admin-only endpoint.
+
+        Query parameters:
+        - entity_id: Filter by entity ID
+        - session_id: Filter by session ID
+        - name: Filter by trace name (contains, case-insensitive)
+        - started_after: Filter traces started after this ISO datetime
+        - sort: Sort field (started_at, ended_at, name, duration_ms, span_count) - default: -started_at
+        - limit: Number of results per page (default: 50, max: 100)
+        - offset: Number of results to skip (default: 0)
+      parameters:
+      - in: query
+        name: entity_id
+        schema:
+          type: integer
+        description: Filter by entity ID
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of results per page (default: 50, max: 100)'
+      - in: query
+        name: name
+        schema:
+          type: string
+        description: Filter by trace name (contains, case-insensitive)
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: 'Number of results to skip (default: 0)'
+      - in: query
+        name: session_id
+        schema:
+          type: string
+        description: Filter by session ID
+      - in: query
+        name: sort
+        schema:
+          type: string
+        description: 'Sort field (started_at, ended_at, name, duration_ms, span_count)
+          - default: -started_at'
+      - in: query
+        name: started_after
+        schema:
+          type: string
+        description: Filter traces started after this ISO datetime
+      tags:
+      - tracing
+      security:
+      - AccountAuthentication: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracesListResponse'
+          description: ''
+        '403':
+          description: Admin access required
+  /api/utils/blog/:
+    get:
+      operationId: utils_blog_retrieve
+      tags:
+      - utils
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogPage'
+          description: ''
+  /api/utils/health/:
+    get:
+      operationId: utils_health_retrieve
+      description: |-
+        Simple health check endpoint for service monitoring.
+
+        Returns:
+            JsonResponse with status "ok"
+      tags:
+      - utils
+      security:
+      - {}
+      responses:
+        '200':
+          description: Health check
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserProfile'
+          readOnly: true
+        account_status:
+          type: string
+          readOnly: true
+        stripe_subscription_status:
+          type: string
+          nullable: true
+          readOnly: true
+        referral_count:
+          type: integer
+          readOnly: true
+        referral_link:
+          type: string
+          readOnly: true
+        has_texted_tutor:
+          type: boolean
+          readOnly: true
+        account_phone:
+          type: string
+          maxLength: 255
+        zip_code:
+          type: string
+          nullable: true
+          maxLength: 255
+        timezone:
+          type: string
+          nullable: true
+          maxLength: 255
+        is_active:
+          type: boolean
+        is_admin:
+          type: boolean
+        is_locked:
+          type: boolean
+          description: If True, account cannot start new classroom sessions unless
+            paid
+        is_human_controlled:
+          type: boolean
+          description: If True, entity won't wake autonomously - human operates via
+            control panel
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tutor_name:
+          type: string
+          maxLength: 255
+        attribution:
+          type: string
+          nullable: true
+          description: Attribution
+          maxLength: 255
+        signup_metadata:
+          nullable: true
+          description: Metadata captured at signup (UTM params, referrer, etc.)
+        stripe_customer_id:
+          type: string
+          nullable: true
+          description: Stripe customer ID for this account.
+          maxLength: 255
+        revenuecat_app_user_id:
+          type: string
+          nullable: true
+          description: RevenueCat app user ID (usually account UUID)
+          maxLength: 255
+        revenuecat_subscription_status:
+          nullable: true
+          description: |-
+            Current RevenueCat subscription status
+
+            * `active` - Active
+            * `expired` - Expired
+            * `in_trial` - In Trial
+            * `cancelled` - Cancelled
+            * `paused` - Paused
+          oneOf:
+          - $ref: '#/components/schemas/RevenuecatSubscriptionStatusEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        revenuecat_product_id:
+          type: string
+          nullable: true
+          description: RevenueCat product identifier (e.g., 'monthly', 'yearly')
+          maxLength: 255
+        revenuecat_entitlement:
+          type: string
+          nullable: true
+          description: RevenueCat entitlement ID (e.g., 'Acadia Learning Pro')
+          maxLength: 255
+        subscription_expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the current subscription period expires
+        registration_source:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationPlatformEnum'
+          description: |-
+            Platform where the account was registered (web or mobile)
+
+            * `web` - Web
+            * `mobile` - Mobile
+        playgrounds_enabled:
+          type: boolean
+          description: If True, all playgrounds are enabled. If False, only the canvas
+            playground is available.
+        speed_lab_enabled:
+          type: boolean
+          description: If True, the Speed Lab playground is enabled for this account.
+        alt_tutor:
+          type: boolean
+          description: If True, use the alt-tutor prompt stack for live classroom
+            sessions.
+        user:
+          type: integer
+        referred_by:
+          type: string
+          format: uuid
+          nullable: true
+          description: Account that referred this user
+      required:
+      - account_phone
+      - account_status
+      - created_at
+      - has_texted_tutor
+      - id
+      - profiles
+      - referral_count
+      - referral_link
+      - stripe_subscription_status
+      - updated_at
+      - user
+    AccountLedgerResponse:
+      type: object
+      description: Response serializer for account ledger
+      properties:
+        account:
+          $ref: '#/components/schemas/AdminAccountList'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        total_entries:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total_pages:
+          type: integer
+      required:
+      - account
+      - entries
+      - page
+      - page_size
+      - total_entries
+      - total_pages
+    AccountRequest:
+      type: object
+      properties:
+        account_phone:
+          type: string
+          minLength: 1
+          maxLength: 255
+        zip_code:
+          type: string
+          nullable: true
+          maxLength: 255
+        timezone:
+          type: string
+          nullable: true
+          maxLength: 255
+        is_active:
+          type: boolean
+        is_admin:
+          type: boolean
+        is_locked:
+          type: boolean
+          description: If True, account cannot start new classroom sessions unless
+            paid
+        is_human_controlled:
+          type: boolean
+          description: If True, entity won't wake autonomously - human operates via
+            control panel
+        tutor_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        attribution:
+          type: string
+          nullable: true
+          description: Attribution
+          maxLength: 255
+        signup_metadata:
+          nullable: true
+          description: Metadata captured at signup (UTM params, referrer, etc.)
+        stripe_customer_id:
+          type: string
+          nullable: true
+          description: Stripe customer ID for this account.
+          maxLength: 255
+        revenuecat_app_user_id:
+          type: string
+          nullable: true
+          description: RevenueCat app user ID (usually account UUID)
+          maxLength: 255
+        revenuecat_subscription_status:
+          nullable: true
+          description: |-
+            Current RevenueCat subscription status
+
+            * `active` - Active
+            * `expired` - Expired
+            * `in_trial` - In Trial
+            * `cancelled` - Cancelled
+            * `paused` - Paused
+          oneOf:
+          - $ref: '#/components/schemas/RevenuecatSubscriptionStatusEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        revenuecat_product_id:
+          type: string
+          nullable: true
+          description: RevenueCat product identifier (e.g., 'monthly', 'yearly')
+          maxLength: 255
+        revenuecat_entitlement:
+          type: string
+          nullable: true
+          description: RevenueCat entitlement ID (e.g., 'Acadia Learning Pro')
+          maxLength: 255
+        subscription_expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the current subscription period expires
+        registration_source:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationPlatformEnum'
+          description: |-
+            Platform where the account was registered (web or mobile)
+
+            * `web` - Web
+            * `mobile` - Mobile
+        playgrounds_enabled:
+          type: boolean
+          description: If True, all playgrounds are enabled. If False, only the canvas
+            playground is available.
+        speed_lab_enabled:
+          type: boolean
+          description: If True, the Speed Lab playground is enabled for this account.
+        alt_tutor:
+          type: boolean
+          description: If True, use the alt-tutor prompt stack for live classroom
+            sessions.
+        user:
+          type: integer
+        referred_by:
+          type: string
+          format: uuid
+          nullable: true
+          description: Account that referred this user
+      required:
+      - account_phone
+      - user
+    ActionItem:
+      type: object
+      description: Serializer for action items
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+      required:
+      - description
+      - priority
+      - title
+    AdminAccountList:
+      type: object
+      description: Lightweight serializer for listing accounts in admin views
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        account_phone:
+          type: string
+          maxLength: 255
+        is_active:
+          type: boolean
+        is_admin:
+          type: boolean
+        is_locked:
+          type: boolean
+          description: If True, account cannot start new classroom sessions unless
+            paid
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserProfile'
+          readOnly: true
+        profile_names:
+          type: array
+          items:
+            type: string
+          readOnly: true
+      required:
+      - account_phone
+      - created_at
+      - id
+      - profile_names
+      - profiles
+    AdminAccountListResponse:
+      type: object
+      description: Paginated response for admin account list
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminAccountList'
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total_pages:
+          type: integer
+      required:
+      - count
+      - page
+      - page_size
+      - results
+      - total_pages
+    Annotation:
+      type: object
+      description: Serializer for session annotations.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        session:
+          type: string
+          format: uuid
+        start_time:
+          type: number
+          format: double
+          description: Start time in seconds
+        end_time:
+          type: number
+          format: double
+          description: End time in seconds
+        sentiment:
+          $ref: '#/components/schemas/SentimentEnum'
+        category:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CategoryEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        severity:
+          $ref: '#/components/schemas/SeverityEnum'
+        notes:
+          type: string
+          nullable: true
+          description: Additional notes about this annotation
+        created_by:
+          type: string
+          format: uuid
+          nullable: true
+          description: Profile that created this annotation
+        created_by_name:
+          type: string
+          nullable: true
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - created_by_name
+      - end_time
+      - id
+      - sentiment
+      - session
+      - start_time
+    AnnotationRequest:
+      type: object
+      description: Serializer for session annotations.
+      properties:
+        session:
+          type: string
+          format: uuid
+        start_time:
+          type: number
+          format: double
+          description: Start time in seconds
+        end_time:
+          type: number
+          format: double
+          description: End time in seconds
+        sentiment:
+          $ref: '#/components/schemas/SentimentEnum'
+        category:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CategoryEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        severity:
+          $ref: '#/components/schemas/SeverityEnum'
+        notes:
+          type: string
+          nullable: true
+          description: Additional notes about this annotation
+        created_by:
+          type: string
+          format: uuid
+          nullable: true
+          description: Profile that created this annotation
+      required:
+      - end_time
+      - sentiment
+      - session
+      - start_time
+    BlankEnum:
+      enum:
+      - ''
+    Blog:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        subtitle:
+          type: string
+        authors:
+          type: array
+          items:
+            type: string
+        created:
+          type: integer
+        status:
+          $ref: '#/components/schemas/BlogStatusEnum'
+        publish_date:
+          type: integer
+        displayed_date:
+          type: string
+          nullable: true
+        split_tested:
+          type: boolean
+        subject_line:
+          type: string
+        preview_text:
+          type: string
+        slug:
+          type: string
+        thumbnail_url:
+          type: string
+        web_url:
+          type: string
+        audience:
+          type: string
+        platform:
+          $ref: '#/components/schemas/BlogPlatformEnum'
+        content_tags:
+          type: array
+          items:
+            type: string
+        meta_default_description:
+          type: string
+          nullable: true
+        meta_default_title:
+          type: string
+          nullable: true
+        hidden_from_feed:
+          type: boolean
+      required:
+      - audience
+      - created
+      - hidden_from_feed
+      - id
+      - platform
+      - publish_date
+      - slug
+      - split_tested
+      - status
+      - title
+      - web_url
+    BlogPage:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Blog'
+        page:
+          type: integer
+        limit:
+          type: integer
+        total_results:
+          type: integer
+        total_pages:
+          type: integer
+      required:
+      - data
+      - limit
+      - page
+      - total_pages
+      - total_results
+    BlogPlatformEnum:
+      enum:
+      - web
+      - email
+      - both
+      type: string
+      description: |-
+        * `web` - Web
+        * `email` - Email
+        * `both` - Both
+    BlogStatusEnum:
+      enum:
+      - draft
+      - confirmed
+      - archived
+      - all
+      type: string
+      description: |-
+        * `draft` - draft
+        * `confirmed` - confirmed
+        * `archived` - archived
+        * `all` - all
+    CategoryEnum:
+      enum:
+      - off_topic
+      - unclear
+      - canvas_rendering
+      - canvas_coherence
+      - unresponsive
+      - premature_answer
+      - bad_explanation
+      - ignoring_student_misunderstanding
+      - misleveling
+      - not_reading_the_room
+      - not_changing_pedagogical_method
+      - canvas_misuse
+      - missing_motivational_techniques
+      - incomplete_scaffolding
+      - premature_end
+      - bad_pedagogy
+      - other
+      type: string
+      description: |-
+        * `off_topic` - Off Topic
+        * `unclear` - Unclear
+        * `canvas_rendering` - Canvas Rendering
+        * `canvas_coherence` - Canvas Coherence
+        * `unresponsive` - Unresponsive
+        * `premature_answer` - Premature Answer
+        * `bad_explanation` - Bad Explanation
+        * `ignoring_student_misunderstanding` - Ignoring Student Misunderstanding
+        * `misleveling` - Misleveling
+        * `not_reading_the_room` - Not Reading The Room
+        * `not_changing_pedagogical_method` - Not Changing Pedagogical Method
+        * `canvas_misuse` - Canvas Misuse
+        * `missing_motivational_techniques` - Missing Motivational Techniques
+        * `incomplete_scaffolding` - Incomplete Scaffolding
+        * `premature_end` - Premature End
+        * `bad_pedagogy` - Bad Pedagogy
+        * `other` - Other
+    CourseObjective:
+      type: object
+      description: Serializer for course objectives
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        week_number:
+          type: integer
+      required:
+      - description
+      - title
+      - week_number
+    CreateLedgerShareLinkRequest:
+      type: object
+      description: Serializer for creating a ledger share link
+      properties:
+        account_id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          default: ''
+        expires_in_days:
+          type: integer
+          maximum: 365
+          minimum: 1
+          nullable: true
+          description: Number of days until the link expires. Null means never expires.
+      required:
+      - account_id
+    CreateMagicLinkRequest:
+      type: object
+      description: Serializer for creating a magic link token for cross-domain auth
+      properties:
+        redirect_url:
+          type: string
+          format: uri
+          description: Optional URL to redirect to after authentication
+    CreateMagicLinkResponse:
+      type: object
+      description: Response serializer for magic link creation
+      properties:
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+      required:
+      - expires_at
+      - token
+    DataRequest:
+      type: object
+      properties:
+        object:
+          $ref: '#/components/schemas/ObjectRequest'
+      required:
+      - object
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        entity:
+          type: integer
+      required:
+      - content
+      - created_at
+      - entity
+      - id
+      - title
+      - updated_at
+    DocumentRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        content:
+          type: string
+          minLength: 1
+        entity:
+          type: integer
+      required:
+      - content
+      - entity
+      - title
+    EntitiesForFilterResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        display:
+          type: string
+        account_name:
+          type: string
+          nullable: true
+        profile_names:
+          type: array
+          items:
+            type: string
+      required:
+      - account_name
+      - display
+      - id
+      - name
+      - profile_names
+    EntityCallStateRequest:
+      type: object
+      description: Serializer for entity joining a call.
+      properties:
+        entity_id:
+          type: integer
+      required:
+      - entity_id
+    EntityContextEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+        timezone:
+          type: string
+        account_phone:
+          type: string
+          nullable: true
+      required:
+      - account_phone
+      - id
+      - name
+      - status
+      - timezone
+    EntityContextInbox:
+      type: object
+      properties:
+        unread_sms:
+          type: boolean
+        unread_emails:
+          type: integer
+      required:
+      - unread_emails
+      - unread_sms
+    EntityContextResponse:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/EntityContextEntity'
+        memory_context:
+          type: string
+        inbox:
+          $ref: '#/components/schemas/EntityContextInbox'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityContextTool'
+      required:
+      - entity
+      - inbox
+      - memory_context
+      - tools
+    EntityContextTool:
+      type: object
+      properties:
+        adapter:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: object
+          additionalProperties: {}
+      required:
+      - adapter
+      - description
+      - name
+      - schema
+    EntityDocumentCreateRequestRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Document title
+        content:
+          type: string
+          minLength: 1
+          description: Document content
+      required:
+      - title
+    EntityDocumentCreateResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityDocumentDeleteResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityDocumentUpdateRequestRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Document title
+        content:
+          type: string
+          minLength: 1
+          description: Document content
+      required:
+      - content
+      - title
+    EntityDocumentUpdateResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityDocumentsListResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - documents
+    EntityEmailReplyRequestRequest:
+      type: object
+      properties:
+        message_id:
+          type: string
+          minLength: 1
+          description: Message ID to reply to
+        to:
+          type: string
+          minLength: 1
+          description: Recipient email address
+        text:
+          type: string
+          minLength: 1
+          description: Reply content
+      required:
+      - message_id
+      - text
+      - to
+    EntityEmailReplyResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityEmailSendRequestRequest:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          description: Recipient email address
+        subject:
+          type: string
+          minLength: 1
+          description: Email subject
+        text:
+          type: string
+          minLength: 1
+          description: Email body
+        cc:
+          type: string
+          minLength: 1
+          description: CC recipients
+        bcc:
+          type: string
+          minLength: 1
+          description: BCC recipients
+      required:
+      - subject
+      - text
+      - to
+    EntityEmailSendResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityEmailThreadDetailResponse:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        messages:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+    EntityEmailThreadsResponse:
+      type: object
+      properties:
+        threads:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+    EntityExecuteToolRequestRequest:
+      type: object
+      properties:
+        tool_name:
+          type: string
+          minLength: 1
+          description: Name of the tool to execute
+        parameters:
+          type: object
+          additionalProperties: {}
+          description: Tool parameters
+      required:
+      - tool_name
+    EntityExecuteToolResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityGoalCreateRequestRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Goal title
+        objective:
+          type: string
+          minLength: 1
+          description: Goal objective
+        start_date:
+          type: string
+          minLength: 1
+          description: Start date (ISO format)
+        end_date:
+          type: string
+          minLength: 1
+          description: End date (ISO format)
+        user_profile_id:
+          type: string
+          minLength: 1
+          description: User profile ID
+      required:
+      - end_date
+      - objective
+      - start_date
+      - title
+    EntityGoalCreateResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityGoalDeleteResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityGoalUpdateRequestRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Goal title
+        objective:
+          type: string
+          minLength: 1
+          description: Goal objective
+        start_date:
+          type: string
+          minLength: 1
+          description: Start date (ISO format)
+        end_date:
+          type: string
+          minLength: 1
+          description: End date (ISO format)
+        status:
+          type: string
+          minLength: 1
+          description: Goal status
+    EntityGoalUpdateResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityGoalsListResponse:
+      type: object
+      properties:
+        goals:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - goals
+    EntityListResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        str:
+          type: string
+        status:
+          type: string
+        timezone:
+          type: string
+        account_phone:
+          type: string
+          nullable: true
+      required:
+      - account_phone
+      - id
+      - name
+      - status
+      - str
+      - timezone
+    EntityMemoryRequest:
+      type: object
+      description: |-
+        Serializer for entity memory updates.
+
+        This is used to update the entity memory for an entity.
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          minItems: 1
+      required:
+      - messages
+    EntitySMSListResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - messages
+    EntitySMSReactRequestRequest:
+      type: object
+      properties:
+        message_id:
+          type: string
+          minLength: 1
+          description: Message ID to react to
+        reaction_type:
+          type: string
+          minLength: 1
+          description: Type of reaction
+      required:
+      - message_id
+      - reaction_type
+    EntitySMSReactResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntitySMSSendRequestRequest:
+      type: object
+      properties:
+        user_profile_id:
+          type: string
+          minLength: 1
+          description: User profile ID to send to
+        message:
+          type: string
+          minLength: 1
+          description: Message content
+      required:
+      - message
+      - user_profile_id
+    EntitySMSSendResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityTaskCreateRequestRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Task title
+        due_date:
+          type: string
+          minLength: 1
+          description: Due date (ISO format)
+        description:
+          type: string
+          minLength: 1
+          description: Task description
+      required:
+      - due_date
+      - title
+    EntityTaskCreateResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityTaskDeleteResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityTaskUpdateRequestRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Task title
+        description:
+          type: string
+          nullable: true
+          minLength: 1
+          description: Task description
+        due_date:
+          type: string
+          minLength: 1
+          description: Due date (ISO format)
+    EntityTaskUpdateResponse:
+      type: object
+      properties:
+        result: {}
+      required:
+      - result
+    EntityTasksListResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - tasks
+    EntityTimelineEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - created_at
+      - id
+      - name
+    EntityTimelineResponse:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/EntityTimelineEntity'
+        events:
+          type: array
+          items: {}
+      required:
+      - entity
+      - events
+    EntityTracesListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TraceList'
+        pagination:
+          $ref: '#/components/schemas/TracePagination'
+      required:
+      - pagination
+      - results
+    EntityUserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        role:
+          type: string
+      required:
+      - email
+      - id
+      - name
+      - phone
+      - role
+    EntityUserProfilesResponse:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityUserProfile'
+      required:
+      - profiles
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+      - error
+    Eval:
+      type: object
+      description: Serializer for Eval model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        input:
+          description: JSON input data for the evaluation
+        rubric:
+          type: string
+          description: Evaluation criteria/rubric
+        category:
+          type: string
+          maxLength: 255
+        source_span:
+          type: string
+          format: uuid
+          nullable: true
+          description: The span this eval was created from
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - input
+      - updated_at
+    EvalCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+      required:
+      - categories
+    EvalCreateRequest:
+      type: object
+      description: Serializer for creating an eval.
+      properties:
+        name:
+          type: string
+          default: ''
+          maxLength: 255
+        input: {}
+        rubric:
+          type: string
+          default: ''
+        category:
+          type: string
+          default: ''
+          maxLength: 255
+        source_span_id:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - input
+    EvalList:
+      type: object
+      description: Lightweight serializer for listing evals.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        input_preview:
+          type: string
+          description: Return a truncated preview of the input JSON.
+          readOnly: true
+        rubric:
+          type: string
+          description: Evaluation criteria/rubric
+        category:
+          type: string
+          maxLength: 255
+        source_span:
+          type: string
+          format: uuid
+          nullable: true
+          description: The span this eval was created from
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - input_preview
+    EvalsListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvalList'
+        pagination:
+          $ref: '#/components/schemas/EvalsPagination'
+      required:
+      - pagination
+      - results
+    EvalsPagination:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        has_more:
+          type: boolean
+      required:
+      - has_more
+      - limit
+      - offset
+      - total_count
+    ExchangeMagicLinkRequest:
+      type: object
+      description: Serializer for exchanging a magic link token for JWT
+      properties:
+        token:
+          type: string
+          minLength: 1
+      required:
+      - token
+    Goal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          description: Goal title
+          maxLength: 255
+        objective:
+          type: string
+          description: The objective of the goal to be achieved
+        start_date:
+          type: string
+          format: date
+          description: When the goal period starts (date only)
+        end_date:
+          type: string
+          format: date
+          description: When the goal period ends (date only)
+        status:
+          allOf:
+          - $ref: '#/components/schemas/GoalStatusEnum'
+          description: |-
+            Current status of the goal
+
+            * `incomplete` - Incomplete
+            * `complete` - Complete
+        parent_goal:
+          type: string
+          format: uuid
+          nullable: true
+          description: Parent goal if this is a sub-goal
+        user_profile:
+          type: string
+          format: uuid
+          readOnly: true
+        user_profile_name:
+          type: string
+          nullable: true
+          description: Get the name of the user profile associated with this goal
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When the goal was created
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When the goal was last updated
+        is_root_goal:
+          type: boolean
+          description: Returns True if this is a root goal (no parent)
+          readOnly: true
+        has_sub_goals:
+          type: boolean
+          description: Returns True if this goal has sub-goals
+          readOnly: true
+        sub_goals:
+          type: string
+          readOnly: true
+      required:
+      - created_at
+      - end_date
+      - has_sub_goals
+      - id
+      - is_root_goal
+      - objective
+      - start_date
+      - sub_goals
+      - title
+      - updated_at
+      - user_profile
+      - user_profile_name
+    GoalRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Goal title
+          maxLength: 255
+        objective:
+          type: string
+          minLength: 1
+          description: The objective of the goal to be achieved
+        start_date:
+          type: string
+          format: date
+          description: When the goal period starts (date only)
+        end_date:
+          type: string
+          format: date
+          description: When the goal period ends (date only)
+        status:
+          allOf:
+          - $ref: '#/components/schemas/GoalStatusEnum'
+          description: |-
+            Current status of the goal
+
+            * `incomplete` - Incomplete
+            * `complete` - Complete
+        parent_goal:
+          type: string
+          format: uuid
+          nullable: true
+          description: Parent goal if this is a sub-goal
+      required:
+      - end_date
+      - objective
+      - start_date
+      - title
+    GoalStatusEnum:
+      enum:
+      - incomplete
+      - complete
+      type: string
+      description: |-
+        * `incomplete` - Incomplete
+        * `complete` - Complete
+    InitializeEntityRequest:
+      type: object
+      description: Serializer for entity initialization
+      properties:
+        platform:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationPlatformEnum'
+          default: mobile
+          description: |-
+            Platform where the entity is being initialized (web or mobile)
+
+            * `web` - Web
+            * `mobile` - Mobile
+    LearningWrapped:
+      type: object
+      description: Serializer for the LearningWrapped model
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user_profile:
+          type: string
+          format: uuid
+          readOnly: true
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: The year this wrapped is for (e.g., 2025)
+        data:
+          description: Complete wrapped data including time stats, progress, patterns,
+            breakthroughs, and tutor observations
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - data
+      - id
+      - updated_at
+      - user_profile
+      - year
+    LearningWrappedListItem:
+      type: object
+      description: Lightweight serializer for listing wraps (without the full data
+        payload)
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        profile_id:
+          type: string
+          format: uuid
+          readOnly: true
+        profile_name:
+          type: string
+          readOnly: true
+        year:
+          type: integer
+          readOnly: true
+          description: The year this wrapped is for (e.g., 2025)
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - profile_id
+      - profile_name
+      - year
+    LedgerEntry:
+      type: object
+      description: Unified serializer for ledger entries (SMS or Session)
+      properties:
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        timestamp:
+          type: string
+          format: date-time
+        sms:
+          allOf:
+          - $ref: '#/components/schemas/SMSMessage'
+          nullable: true
+        session:
+          allOf:
+          - $ref: '#/components/schemas/LedgerSession'
+          nullable: true
+      required:
+      - timestamp
+      - type
+    LedgerSession:
+      type: object
+      description: Lightweight serializer for sessions in ledger view
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        profile_id:
+          type: string
+          format: uuid
+          nullable: true
+        profile_name:
+          type: string
+          nullable: true
+        session_started_at:
+          type: string
+          format: date-time
+          nullable: true
+        session_ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        audio_duration_seconds:
+          type: number
+          format: double
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - audio_duration_seconds
+      - created_at
+      - description
+      - id
+      - name
+      - profile_id
+      - profile_name
+      - session_ended_at
+      - session_started_at
+    LedgerShareLink:
+      type: object
+      description: Serializer for ledger share links
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        account_id:
+          type: string
+          format: uuid
+          readOnly: true
+        account_name:
+          type: string
+          readOnly: true
+        token:
+          type: string
+          readOnly: true
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        view_count:
+          type: integer
+          readOnly: true
+        share_url:
+          type: string
+          readOnly: true
+      required:
+      - account_id
+      - account_name
+      - created_at
+      - id
+      - share_url
+      - token
+      - view_count
+    MetadataRequest:
+      type: object
+      properties:
+        entity_id:
+          type: string
+          minLength: 1
+      required:
+      - entity_id
+    NullEnum:
+      enum:
+      - null
+    ObjectRequest:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/MetadataRequest'
+      required:
+      - metadata
+    PaginatedSessionListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionList'
+        count:
+          type: integer
+          description: Total number of sessions
+        page:
+          type: integer
+          description: Current page number
+        page_size:
+          type: integer
+          description: Number of results per page
+        total_pages:
+          type: integer
+          description: Total number of pages
+      required:
+      - count
+      - page
+      - page_size
+      - results
+      - total_pages
+    PatchedAccountRequest:
+      type: object
+      properties:
+        account_phone:
+          type: string
+          minLength: 1
+          maxLength: 255
+        zip_code:
+          type: string
+          nullable: true
+          maxLength: 255
+        timezone:
+          type: string
+          nullable: true
+          maxLength: 255
+        is_active:
+          type: boolean
+        is_admin:
+          type: boolean
+        is_locked:
+          type: boolean
+          description: If True, account cannot start new classroom sessions unless
+            paid
+        is_human_controlled:
+          type: boolean
+          description: If True, entity won't wake autonomously - human operates via
+            control panel
+        tutor_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        attribution:
+          type: string
+          nullable: true
+          description: Attribution
+          maxLength: 255
+        signup_metadata:
+          nullable: true
+          description: Metadata captured at signup (UTM params, referrer, etc.)
+        stripe_customer_id:
+          type: string
+          nullable: true
+          description: Stripe customer ID for this account.
+          maxLength: 255
+        revenuecat_app_user_id:
+          type: string
+          nullable: true
+          description: RevenueCat app user ID (usually account UUID)
+          maxLength: 255
+        revenuecat_subscription_status:
+          nullable: true
+          description: |-
+            Current RevenueCat subscription status
+
+            * `active` - Active
+            * `expired` - Expired
+            * `in_trial` - In Trial
+            * `cancelled` - Cancelled
+            * `paused` - Paused
+          oneOf:
+          - $ref: '#/components/schemas/RevenuecatSubscriptionStatusEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        revenuecat_product_id:
+          type: string
+          nullable: true
+          description: RevenueCat product identifier (e.g., 'monthly', 'yearly')
+          maxLength: 255
+        revenuecat_entitlement:
+          type: string
+          nullable: true
+          description: RevenueCat entitlement ID (e.g., 'Acadia Learning Pro')
+          maxLength: 255
+        subscription_expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the current subscription period expires
+        registration_source:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationPlatformEnum'
+          description: |-
+            Platform where the account was registered (web or mobile)
+
+            * `web` - Web
+            * `mobile` - Mobile
+        playgrounds_enabled:
+          type: boolean
+          description: If True, all playgrounds are enabled. If False, only the canvas
+            playground is available.
+        speed_lab_enabled:
+          type: boolean
+          description: If True, the Speed Lab playground is enabled for this account.
+        alt_tutor:
+          type: boolean
+          description: If True, use the alt-tutor prompt stack for live classroom
+            sessions.
+        user:
+          type: integer
+        referred_by:
+          type: string
+          format: uuid
+          nullable: true
+          description: Account that referred this user
+    PatchedAnnotationRequest:
+      type: object
+      description: Serializer for session annotations.
+      properties:
+        session:
+          type: string
+          format: uuid
+        start_time:
+          type: number
+          format: double
+          description: Start time in seconds
+        end_time:
+          type: number
+          format: double
+          description: End time in seconds
+        sentiment:
+          $ref: '#/components/schemas/SentimentEnum'
+        category:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CategoryEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        severity:
+          $ref: '#/components/schemas/SeverityEnum'
+        notes:
+          type: string
+          nullable: true
+          description: Additional notes about this annotation
+        created_by:
+          type: string
+          format: uuid
+          nullable: true
+          description: Profile that created this annotation
+    PatchedDocumentRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        content:
+          type: string
+          minLength: 1
+        entity:
+          type: integer
+    PatchedEvalUpdateRequest:
+      type: object
+      description: Serializer for updating an eval.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        input: {}
+        rubric:
+          type: string
+        category:
+          type: string
+          maxLength: 255
+    PatchedGoalRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Goal title
+          maxLength: 255
+        objective:
+          type: string
+          minLength: 1
+          description: The objective of the goal to be achieved
+        start_date:
+          type: string
+          format: date
+          description: When the goal period starts (date only)
+        end_date:
+          type: string
+          format: date
+          description: When the goal period ends (date only)
+        status:
+          allOf:
+          - $ref: '#/components/schemas/GoalStatusEnum'
+          description: |-
+            Current status of the goal
+
+            * `incomplete` - Incomplete
+            * `complete` - Complete
+        parent_goal:
+          type: string
+          format: uuid
+          nullable: true
+          description: Parent goal if this is a sub-goal
+    PatchedSessionRequest:
+      type: object
+      description: Serializer for session recordings.
+      properties:
+        room_name:
+          type: string
+          minLength: 1
+          description: LiveKit room name
+          maxLength: 255
+        profile:
+          type: string
+          format: uuid
+          nullable: true
+          description: Student profile for this session
+        recording_url:
+          type: string
+          format: uri
+          minLength: 1
+          description: S3 URL to the audio file
+          maxLength: 500
+        name:
+          type: string
+          nullable: true
+          description: AI-generated session name
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: AI-generated 2-3 sentence description
+        transcript:
+          type: string
+          nullable: true
+          description: Direct word-for-word transcript from Gemini
+        timestamped_summary:
+          type: string
+          nullable: true
+          description: Detailed timestamped summary/timeline of session events
+        audio_duration_seconds:
+          type: number
+          format: double
+          nullable: true
+          description: Actual audio duration (non-silent)
+        session_started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session started (calculated)
+        session_ended_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session ended
+        processing_error:
+          type: string
+          nullable: true
+          description: Any errors during processing
+        leveling_assessment:
+          nullable: true
+          description: AI assessment of teaching level appropriateness (status, reasoning,
+            evidence, suggested_level)
+    PatchedSpanUpdateRequest:
+      type: object
+      description: Serializer for updating a span (setting output, ending).
+      properties:
+        output_text:
+          type: string
+          nullable: true
+        metadata: {}
+        ended:
+          type: boolean
+          default: false
+    PatchedTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Task title
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the task
+        due_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the task is due (in ISO format)
+    PatchedUserProfileRequest:
+      type: object
+      description: Serializer for the UserProfile model
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        profile_type:
+          $ref: '#/components/schemas/ProfileTypeEnum'
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        phone:
+          type: string
+          nullable: true
+          maxLength: 255
+        metadata:
+          type: string
+        last_sms_read_time:
+          type: string
+          format: date-time
+          nullable: true
+        voice_id:
+          type: string
+          minLength: 1
+          description: ElevenLabs voice ID for TTS
+          maxLength: 255
+    PriorityEnum:
+      enum:
+      - high
+      - medium
+      - low
+      type: string
+      description: |-
+        * `high` - high
+        * `medium` - medium
+        * `low` - low
+    ProfileStats:
+      type: object
+      description: Serializer for profile learning stats
+      properties:
+        streak:
+          type: integer
+          description: Current streak in days
+        minutes_today:
+          type: integer
+          description: Total minutes of learning today
+        sessions_this_week:
+          type: integer
+          description: Number of sessions this week
+        minutes_this_week:
+          type: integer
+          description: Total minutes of learning this week
+      required:
+      - minutes_this_week
+      - minutes_today
+      - sessions_this_week
+      - streak
+    ProfileTypeEnum:
+      enum:
+      - parent
+      - student
+      type: string
+      description: |-
+        * `parent` - Parent
+        * `student` - Student
+    ReferralInfoResponse:
+      type: object
+      description: Serializer for referral info response
+      properties:
+        success:
+          type: boolean
+        referrer_name:
+          type: string
+        referral_code:
+          type: string
+      required:
+      - referral_code
+      - referrer_name
+      - success
+    RegistrationPlatformEnum:
+      enum:
+      - web
+      - mobile
+      type: string
+      description: |-
+        * `web` - Web
+        * `mobile` - Mobile
+    ReportCard:
+      type: object
+      description: Serializer for the ReportCard model
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        immediate_action_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionItem'
+        skill_assessments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillAssessment'
+        recommended_course_objectives:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseObjective'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        session_date:
+          type: string
+          format: date
+        session_duration_minutes:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        recommended_course_name:
+          type: string
+          maxLength: 255
+        recommended_course_duration_weeks:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        recommended_course_description:
+          type: string
+        tutor_notes:
+          type: string
+        user_profile:
+          type: string
+          format: uuid
+      required:
+      - created_at
+      - id
+      - immediate_action_items
+      - recommended_course_description
+      - recommended_course_duration_weeks
+      - recommended_course_name
+      - recommended_course_objectives
+      - session_date
+      - session_duration_minutes
+      - skill_assessments
+      - tutor_notes
+      - user_profile
+    RequestEmailVerificationCodeRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          minLength: 1
+      required:
+      - phone_number
+    RequestSupportAuthRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          minLength: 1
+      required:
+      - phone_number
+    RequestVerificationCodeRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          minLength: 1
+        allow_signup:
+          type: boolean
+          default: true
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          default: web
+          description: |-
+            Platform where the registration is happening (web or mobile)
+
+            * `web` - web
+            * `mobile` - mobile
+        referral_code:
+          type: string
+          description: Referral code from another user
+        timezone:
+          type: string
+          description: Browser/device timezone in IANA format (e.g., America/New_York)
+        signup_metadata:
+          description: Metadata captured at signup (UTM params, referrer, fbp, etc.)
+      required:
+      - phone_number
+    RequestVerificationCodeResponse:
+      type: object
+      properties:
+        account_created:
+          type: boolean
+        message:
+          type: string
+        success:
+          type: boolean
+      required:
+      - account_created
+      - message
+      - success
+    RerunGeminiResponse:
+      type: object
+      properties:
+        cleared:
+          type: integer
+      required:
+      - cleared
+    RevenuecatSubscriptionStatusEnum:
+      enum:
+      - active
+      - expired
+      - in_trial
+      - cancelled
+      - paused
+      type: string
+      description: |-
+        * `active` - Active
+        * `expired` - Expired
+        * `in_trial` - In Trial
+        * `cancelled` - Cancelled
+        * `paused` - Paused
+    SMSMessage:
+      type: object
+      description: Serializer for SMS messages in ledger view
+      properties:
+        id:
+          type: integer
+        from_number:
+          type: string
+        to_number:
+          type: string
+        body:
+          type: string
+        direction:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        has_attachments:
+          type: boolean
+      required:
+      - body
+      - created_at
+      - direction
+      - from_number
+      - has_attachments
+      - id
+      - to_number
+    SentimentEnum:
+      enum:
+      - positive
+      - negative
+      type: string
+      description: |-
+        * `positive` - Positive
+        * `negative` - Negative
+    Session:
+      type: object
+      description: Serializer for session recordings.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        room_name:
+          type: string
+          description: LiveKit room name
+          maxLength: 255
+        profile:
+          type: string
+          format: uuid
+          nullable: true
+          description: Student profile for this session
+        profile_name:
+          type: string
+          readOnly: true
+        recording_url:
+          type: string
+          format: uri
+          description: S3 URL to the audio file
+          maxLength: 500
+        presigned_url:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          description: AI-generated session name
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: AI-generated 2-3 sentence description
+        transcript:
+          type: string
+          nullable: true
+          description: Direct word-for-word transcript from Gemini
+        timestamped_summary:
+          type: string
+          nullable: true
+          description: Detailed timestamped summary/timeline of session events
+        audio_duration_seconds:
+          type: number
+          format: double
+          nullable: true
+          description: Actual audio duration (non-silent)
+        session_started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session started (calculated)
+        session_ended_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session ended
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        processed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: When Gemini processing completed
+        processing_error:
+          type: string
+          nullable: true
+          description: Any errors during processing
+        leveling_assessment:
+          nullable: true
+          description: AI assessment of teaching level appropriateness (status, reasoning,
+            evidence, suggested_level)
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+          readOnly: true
+      required:
+      - annotations
+      - created_at
+      - id
+      - presigned_url
+      - processed_at
+      - profile_name
+      - recording_url
+      - room_name
+    SessionList:
+      type: object
+      description: Lightweight serializer for session list view.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        room_name:
+          type: string
+          description: LiveKit room name
+          maxLength: 255
+        profile:
+          type: string
+          format: uuid
+          nullable: true
+          description: Student profile for this session
+        profile_name:
+          type: string
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          description: AI-generated session name
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: AI-generated 2-3 sentence description
+        audio_duration_seconds:
+          type: number
+          format: double
+          nullable: true
+          description: Actual audio duration (non-silent)
+        session_started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session started (calculated)
+        session_ended_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session ended
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        processed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: When Gemini processing completed
+        processing_error:
+          type: string
+          nullable: true
+          description: Any errors during processing
+        annotation_count:
+          type: integer
+          readOnly: true
+      required:
+      - annotation_count
+      - created_at
+      - id
+      - processed_at
+      - profile_name
+      - room_name
+    SessionMergeRequest:
+      type: object
+      description: Serializer for merging multiple sessions.
+      properties:
+        session_ids:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          description: List of session IDs to merge
+      required:
+      - session_ids
+    SessionRequest:
+      type: object
+      description: Serializer for session recordings.
+      properties:
+        room_name:
+          type: string
+          minLength: 1
+          description: LiveKit room name
+          maxLength: 255
+        profile:
+          type: string
+          format: uuid
+          nullable: true
+          description: Student profile for this session
+        recording_url:
+          type: string
+          format: uri
+          minLength: 1
+          description: S3 URL to the audio file
+          maxLength: 500
+        name:
+          type: string
+          nullable: true
+          description: AI-generated session name
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: AI-generated 2-3 sentence description
+        transcript:
+          type: string
+          nullable: true
+          description: Direct word-for-word transcript from Gemini
+        timestamped_summary:
+          type: string
+          nullable: true
+          description: Detailed timestamped summary/timeline of session events
+        audio_duration_seconds:
+          type: number
+          format: double
+          nullable: true
+          description: Actual audio duration (non-silent)
+        session_started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session started (calculated)
+        session_ended_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When session ended
+        processing_error:
+          type: string
+          nullable: true
+          description: Any errors during processing
+        leveling_assessment:
+          nullable: true
+          description: AI assessment of teaching level appropriateness (status, reasoning,
+            evidence, suggested_level)
+      required:
+      - recording_url
+      - room_name
+    SessionTracePagination:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        has_more:
+          type: boolean
+      required:
+      - has_more
+      - limit
+      - offset
+      - total_count
+    SessionTracesListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TraceList'
+        pagination:
+          $ref: '#/components/schemas/SessionTracePagination'
+      required:
+      - pagination
+      - results
+    SeverityEnum:
+      enum:
+      - preference
+      - recoverable_failure
+      - total_failure
+      type: string
+      description: |-
+        * `preference` - Preference
+        * `recoverable_failure` - Recoverable Failure
+        * `total_failure` - Total Failure
+    SharedLedgerProfile:
+      type: object
+      description: Lightweight profile serializer for shared ledger
+      properties:
+        name:
+          type: string
+          nullable: true
+        profile_type:
+          type: string
+      required:
+      - name
+      - profile_type
+    SharedLedgerResponse:
+      type: object
+      description: Response serializer for public shared ledger view
+      properties:
+        account_name:
+          type: string
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedLedgerProfile'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        total_entries:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total_pages:
+          type: integer
+      required:
+      - account_name
+      - entries
+      - page
+      - page_size
+      - profiles
+      - total_entries
+      - total_pages
+    SkillAssessment:
+      type: object
+      description: Serializer for skill assessments
+      properties:
+        skill_name:
+          type: string
+        skill_description:
+          type: string
+        skill_level:
+          $ref: '#/components/schemas/SkillLevelEnum'
+      required:
+      - skill_description
+      - skill_level
+      - skill_name
+    SkillLevelEnum:
+      enum:
+      - automatic
+      - mastered
+      - reinforcing
+      - learning
+      - untouched
+      type: string
+      description: |-
+        * `automatic` - automatic
+        * `mastered` - mastered
+        * `reinforcing` - reinforcing
+        * `learning` - learning
+        * `untouched` - untouched
+    SourceEnum:
+      enum:
+      - web
+      - mobile
+      type: string
+      description: |-
+        * `web` - web
+        * `mobile` - mobile
+    Span:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        trace:
+          type: string
+          format: uuid
+        parent:
+          type: string
+          format: uuid
+          nullable: true
+        name:
+          type: string
+          maxLength: 255
+        span_type:
+          $ref: '#/components/schemas/SpanTypeEnum'
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        duration_ms:
+          type: integer
+          nullable: true
+          description: Calculate span duration in milliseconds.
+          readOnly: true
+        input_text:
+          type: string
+          nullable: true
+        output_text:
+          type: string
+          nullable: true
+        audio_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 2048
+        audio_data:
+          type: string
+          nullable: true
+        audio_duration_ms:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        audio_format:
+          type: string
+          nullable: true
+          maxLength: 20
+        metadata: {}
+      required:
+      - duration_ms
+      - id
+      - name
+      - started_at
+      - trace
+    SpanCreateRequest:
+      type: object
+      description: Serializer for creating spans via API (used by agent).
+      properties:
+        trace_id:
+          type: string
+          format: uuid
+          nullable: true
+        parent_id:
+          type: string
+          format: uuid
+          nullable: true
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        span_type:
+          allOf:
+          - $ref: '#/components/schemas/SpanTypeEnum'
+          default: text
+        input_text:
+          type: string
+          nullable: true
+        output_text:
+          type: string
+          nullable: true
+        audio_url:
+          type: string
+          format: uri
+          nullable: true
+        audio_data:
+          type: string
+          nullable: true
+        audio_duration_ms:
+          type: integer
+          nullable: true
+        audio_format:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 20
+        metadata: {}
+        entity_id:
+          type: integer
+          nullable: true
+        session_id:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - name
+    SpanFlagRequest:
+      type: object
+      description: Serializer for flagging a span with incorrect transcription.
+      properties:
+        corrected_transcription:
+          type: string
+          minLength: 1
+      required:
+      - corrected_transcription
+    SpanLight:
+      type: object
+      description: Span serializer without audio_data to reduce memory usage.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        trace:
+          type: string
+          format: uuid
+        parent:
+          type: string
+          format: uuid
+          nullable: true
+        name:
+          type: string
+          maxLength: 255
+        span_type:
+          $ref: '#/components/schemas/SpanTypeEnum'
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        duration_ms:
+          type: integer
+          nullable: true
+          description: Calculate span duration in milliseconds.
+          readOnly: true
+        input_text:
+          type: string
+          nullable: true
+        output_text:
+          type: string
+          nullable: true
+        audio_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 2048
+        audio_duration_ms:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        audio_format:
+          type: string
+          nullable: true
+          maxLength: 20
+        metadata: {}
+      required:
+      - duration_ms
+      - id
+      - name
+      - started_at
+      - trace
+    SpanTimeline:
+      type: object
+      description: Minimal span fields for timeline rendering -- no text payloads.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        trace:
+          type: string
+          format: uuid
+        parent:
+          type: string
+          format: uuid
+          nullable: true
+        name:
+          type: string
+          maxLength: 255
+        span_type:
+          $ref: '#/components/schemas/SpanTypeEnum'
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        duration_ms:
+          type: integer
+          nullable: true
+          description: Calculate span duration in milliseconds.
+          readOnly: true
+      required:
+      - duration_ms
+      - id
+      - name
+      - started_at
+      - trace
+    SpanTypeEnum:
+      enum:
+      - text
+      - audio
+      - tool
+      - function
+      - llm
+      type: string
+      description: |-
+        * `text` - Text
+        * `audio` - Audio
+        * `tool` - Tool
+        * `function` - Function
+        * `llm` - LLM
+    StripeCheckoutSessionRequest:
+      type: object
+      description: Serializer for stripe checkout session.
+      properties:
+        quantity:
+          type: integer
+      required:
+      - quantity
+    StripeCheckoutSessionResponse:
+      type: object
+      description: Serializer for stripe checkout session response.
+      properties:
+        url:
+          type: string
+      required:
+      - url
+    StripeWebhookRequest:
+      type: object
+      description: Serializer for stripe webhook events.
+      properties:
+        event:
+          type: string
+          minLength: 1
+        data:
+          $ref: '#/components/schemas/DataRequest'
+      required:
+      - data
+      - event
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+      - message
+      - success
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          description: Task title
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the task
+        due_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the task is due (in ISO format)
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When the task was created
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When the task was last updated
+        entity:
+          type: integer
+          readOnly: true
+          description: The entity this task belongs to
+        is_overdue:
+          type: boolean
+          description: Check if the task is overdue
+          readOnly: true
+      required:
+      - created_at
+      - entity
+      - id
+      - is_overdue
+      - title
+      - updated_at
+    TaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Task title
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the task
+        due_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the task is due (in ISO format)
+      required:
+      - title
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+      required:
+      - access
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - refresh
+    TokenVerifyRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - token
+    Trace:
+      type: object
+      description: |-
+        Full trace serializer with spans.
+        Note: Uses SpanLightSerializer (excludes audio_data) to prevent memory issues.
+        To get audio_data, fetch individual spans via the get_span endpoint.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        entity:
+          type: integer
+          nullable: true
+        session:
+          type: string
+          format: uuid
+          nullable: true
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        metadata: {}
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpanLight'
+          readOnly: true
+      required:
+      - id
+      - name
+      - spans
+      - started_at
+    TraceCreateRequest:
+      type: object
+      description: Serializer for creating a trace.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        room_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        entity_id:
+          type: integer
+          nullable: true
+        session_id:
+          type: string
+          format: uuid
+          nullable: true
+        metadata: {}
+      required:
+      - name
+    TraceDetail:
+      type: object
+      description: Trace serializer without nested spans (spans handled separately
+        for pagination).
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        entity:
+          type: integer
+          nullable: true
+        session:
+          type: string
+          format: uuid
+          nullable: true
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        metadata: {}
+      required:
+      - id
+      - name
+      - started_at
+    TraceList:
+      type: object
+      description: Lightweight serializer for listing traces (without nested spans).
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        entity:
+          type: integer
+          nullable: true
+        entity_name:
+          type: string
+          nullable: true
+          readOnly: true
+        account_name:
+          type: string
+          nullable: true
+          readOnly: true
+        session:
+          type: string
+          format: uuid
+          nullable: true
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        duration_ms:
+          type: integer
+          nullable: true
+          readOnly: true
+        metadata: {}
+        span_count:
+          type: integer
+          readOnly: true
+        has_error:
+          type: boolean
+          readOnly: true
+      required:
+      - account_name
+      - duration_ms
+      - entity_name
+      - has_error
+      - id
+      - name
+      - span_count
+      - started_at
+    TracePagination:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        has_more:
+          type: boolean
+      required:
+      - has_more
+      - limit
+      - offset
+      - total_count
+    TraceTimelineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpanTimeline'
+      required:
+      - ended_at
+      - id
+      - name
+      - spans
+      - started_at
+    TracesListPagination:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        has_more:
+          type: boolean
+      required:
+      - has_more
+      - limit
+      - offset
+      - total_count
+    TracesListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TraceList'
+        pagination:
+          $ref: '#/components/schemas/TracesListPagination'
+      required:
+      - pagination
+      - results
+    TypeEnum:
+      enum:
+      - sms
+      - session
+      type: string
+      description: |-
+        * `sms` - sms
+        * `session` - session
+    UserProfile:
+      type: object
+      description: Serializer for the UserProfile model
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        profile_type:
+          $ref: '#/components/schemas/ProfileTypeEnum'
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        phone:
+          type: string
+          nullable: true
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        metadata:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        last_sms_read_time:
+          type: string
+          format: date-time
+          nullable: true
+        voice_id:
+          type: string
+          description: ElevenLabs voice ID for TTS
+          maxLength: 255
+        account:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - account
+      - created_at
+      - id
+      - profile_type
+      - updated_at
+    UserProfileRequest:
+      type: object
+      description: Serializer for the UserProfile model
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        profile_type:
+          $ref: '#/components/schemas/ProfileTypeEnum'
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        phone:
+          type: string
+          nullable: true
+          maxLength: 255
+        metadata:
+          type: string
+        last_sms_read_time:
+          type: string
+          format: date-time
+          nullable: true
+        voice_id:
+          type: string
+          minLength: 1
+          description: ElevenLabs voice ID for TTS
+          maxLength: 255
+      required:
+      - profile_type
+    VerifyCodeRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          minLength: 1
+        code:
+          type: string
+          minLength: 1
+      required:
+      - code
+      - phone_number
+    VerifyCodeResponse:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
+        refresh:
+          type: string
+        access:
+          type: string
+      required:
+      - access
+      - account
+      - refresh
+    VerifyEmailCodeRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          minLength: 1
+        code:
+          type: string
+          minLength: 1
+      required:
+      - code
+      - phone_number
+  securitySchemes:
+    AccountAuthentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    EntityAuthentication:
+      type: apiKey
+      in: header
+      name: X-ENTITY-API-KEY
+tags:
+- name: entities
+  description: Entity management
+- name: calendars
+  description: Calendar management
+- name: events
+  description: Calendar events
+- name: sms
+  description: SMS messaging

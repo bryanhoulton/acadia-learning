@@ -1,0 +1,24 @@
+{
+  "name": "www-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "blog",
+    "site"
+  ],
+  "scripts": {
+    "dev:site": "yarn workspace site dev",
+    "dev:blog": "yarn workspace blog dev",
+    "build:site": "yarn workspace site build",
+    "build:blog": "yarn workspace blog build",
+    "build": "yarn build:site && yarn build:blog",
+    "lint:site": "yarn workspace site lint",
+    "lint:blog": "yarn workspace blog lint",
+    "lint": "yarn lint:site && yarn lint:blog",
+    "preview": "yarn workspace site preview",
+    "generate": "yarn workspace blog generate"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3"
+  }
+}

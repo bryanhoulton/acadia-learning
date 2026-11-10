@@ -1,0 +1,511 @@
+{
+  "courses": [
+    {
+      "title": "Math Fundamentals: Fractions, Decimals, and Percentages",
+      "grade_range": "Advanced 4th & 5th (with extension into early 6th)",
+      "modules": [
+        {
+          "module": "Fractions",
+          "lessons": [
+            {
+              "title": "Understanding Fractions",
+              "description": "This lesson introduces fractions as numbers that represent equal parts of a whole. Students use shaded regions of shapes, collections of objects, and points on a number line to see how fractions describe amounts that may be smaller than one whole or larger than one whole when several wholes are included. They learn how the numerator tells how many parts are being counted and the denominator shows how many equal parts the whole is divided into, establishing fractions as an extension of the number system."
+            },
+            {
+              "title": "Equivalent Fractions",
+              "description": "Students extend their understanding of fractions by exploring how the same value can be written with different numerators and denominators. Using area models, number lines, and multiplication patterns, they discover that ½, 2/4, and 3/6 all describe the same amount. This lesson emphasizes that fractions can look different but still represent the same quantity, a concept that becomes essential when comparing and calculating with fractions."
+            },
+            {
+              "title": "Simplifying Fractions",
+              "description": "Building on equivalence, students practice rewriting fractions in their simplest form. Using their knowledge of factors, they divide both numerator and denominator by common factors until no further simplification is possible. This lesson develops efficiency and clarity in working with fractions, setting the stage for accurate and streamlined operations."
+            },
+            {
+              "title": "Comparing and Ordering Fractions",
+              "description": "Students use benchmarks like 0, ½, and 1, as well as number lines and common denominators, to determine which fractions are larger or smaller. By reasoning about size instead of just memorizing rules, they build flexibility in comparing fractions. This lesson helps students place fractions in order, preparing them for operations and real-world reasoning about quantities."
+            },
+            {
+              "title": "Finding Common Denominators",
+              "description": "This lesson introduces the process of finding a common denominator, using multiples and prime factorization to create equivalent fractions with the same bottom number. Students practice rewriting fractions in these forms so they can be easily added, subtracted, or compared. This step bridges their knowledge of factors with the upcoming work on operations."
+            },
+            {
+              "title": "Adding and Subtracting Like Fractions",
+              "description": "Students apply their whole-number addition and subtraction skills to fractions with the same denominator. Since the parts are already equal in size, they add or subtract only the numerators while keeping the denominator fixed. This lesson provides a simple entry point into operations with fractions and reinforces the meaning of denominators."
+            },
+            {
+              "title": "Adding and Subtracting Unlike Fractions",
+              "description": "Building directly on common denominators, students learn to add and subtract fractions with different denominators. They practice rewriting each fraction into an equivalent form before performing the operation and then simplifying the result. This lesson strengthens the connection between equivalence and operations while deepening fluency."
+            },
+            {
+              "title": "Mixed Numbers and Improper Fractions",
+              "description": "Students are introduced to two ways of writing numbers greater than one: mixed numbers (a whole number plus a fraction) and improper fractions (a fraction with a numerator larger than the denominator). They practice converting back and forth between the two forms and learn when each representation is most useful in solving problems."
+            },
+            {
+              "title": "Operations with Mixed Numbers",
+              "description": "This lesson extends fraction operations to mixed numbers. Students add, subtract, multiply, and divide mixed numbers accurately by converting to improper fractions when needed and carefully managing regrouping. They see how fractions and whole numbers interact within the same problem, a key step for handling everyday contexts."
+            },
+            {
+              "title": "Multiplying Fractions",
+              "description": "Students learn to multiply fractions by thinking of it as finding “a part of a part.” They use area models and scaling to visualize why multiplying the numerators and denominators works, and they begin to use cross-cancellation as an efficient strategy. This lesson reinforces both conceptual understanding and procedural skill."
+            },
+            {
+              "title": "Dividing Fractions",
+              "description": "This lesson introduces division of fractions, beginning with visual models and moving toward the “flip and multiply” rule. Students also use estimation and benchmarks to check whether their answers make sense. By connecting the reciprocal rule to real reasoning, they avoid treating it as a trick and gain lasting understanding."
+            }
+          ]
+        },
+        {
+          "module": "Decimals",
+          "lessons": [
+            {
+              "title": "Understanding Decimals",
+              "description": "Students are introduced to decimals as another way of representing fractions, closely tied to place value. Using base-ten blocks, number lines, and money, they see how tenths, hundredths, and thousandths connect to fractions with denominators of 10, 100, and 1,000. This lesson builds a natural bridge between fractions and the place-value system they already know from whole numbers."
+            },
+            {
+              "title": "Converting Fractions to Decimals",
+              "description": "Students learn to convert fractions into decimals by dividing the numerator by the denominator. They also use memorized equivalences, such as ¼ = 0.25 and ½ = 0.5, to build fluency. This lesson highlights the relationship between division, fractions, and decimals."
+            },
+            {
+              "title": "Converting Decimals to Fractions",
+              "description": "Students reverse the process by writing decimals as fractions. Using place value, they express decimals as tenths, hundredths, or thousandths and then simplify when possible (e.g., 0.75 = 75/100 = ¾). This reinforces the deep connection between the two systems of notation."
+            },
+            {
+              "title": "Terminating vs. Repeating Decimals",
+              "description": "Students explore why some fractions convert into decimals that stop (terminating) and others convert into decimals that repeat endlessly. By examining the prime factors of denominators, they see the predictable patterns behind these different types of decimals."
+            }
+          ]
+        },
+        {
+          "module": "Percents",
+          "lessons": [
+            {
+              "title": "Understanding Percents",
+              "description": "Students learn that percents describe “out of 100” and connect naturally to fractions and decimals. They use grids, money examples, and familiar benchmarks like 25%, 50%, and 75% to estimate and reason about percents. This lesson establishes percents as a third way of representing numbers, alongside fractions and decimals."
+            },
+            {
+              "title": "Percent to Fraction Conversions",
+              "description": "This lesson builds on fraction skills by showing how any percent can be written as a fraction out of 100 and simplified (for example, 25% = 25/100 = ¼). Students practice moving comfortably between the two forms."
+            },
+            {
+              "title": "Percent to Decimal Conversions",
+              "description": "Students use their place-value knowledge to convert percents into decimals by dividing by 100 (for example, 35% = 0.35). This lesson shows how percents are closely tied to the decimal system."
+            },
+            {
+              "title": "Fractions, Decimals, and Percents Equivalence",
+              "description": "Students practice translating the same value into all three forms—fraction, decimal, and percent. By seeing these as different “languages” for the same number, they become fluent in choosing whichever form is most useful in a given context."
+            },
+            {
+              "title": "Finding the Part (% of a number)",
+              "description": "Students apply multiplication to calculate a portion of a whole given a percent (for example, 20% of 50 = 10). Visual models and ratio reasoning are used alongside multiplication to reinforce understanding."
+            },
+            {
+              "title": "Finding the Percent (part ÷ whole)",
+              "description": "This lesson introduces percent as a way to compare a part to a whole. Students practice dividing the part by the whole and then converting the result into a percent, making sense of situations like test scores or survey results."
+            },
+            {
+              "title": "Finding the Whole (part ÷ %)",
+              "description": "Students extend percent reasoning to work backwards. Given a part and a percent, they solve for the total whole, developing early algebraic thinking in the process."
+            },
+            {
+              "title": "Discount Problems",
+              "description": "Students apply percent decrease to find sale prices. They solve one- and two-step problems, such as calculating savings and then applying sales tax, connecting classroom math to real-life shopping."
+            },
+            {
+              "title": "Tax and Tip Problems",
+              "description": "This lesson focuses on percent increases in contexts like dining out and retail. Students calculate added costs for tax and tips and compare their results to quick mental estimates for reasonableness."
+            },
+            {
+              "title": "Percent Increase and Decrease",
+              "description": "Students practice calculating percent changes in a variety of contexts, from prices and population to sports scores. This builds real-world relevance and solidifies the meaning of “percent change.”"
+            },
+            {
+              "title": "Multi-Step Percent Chains",
+              "description": "Students explore what happens when multiple percent changes occur in sequence, such as back-to-back discounts or a discount followed by tax. They also compare sequential changes to the overall net change, reinforcing proportional reasoning."
+            },
+            {
+              "title": "Percent Error",
+              "description": "Students calculate percent error by comparing a measured or estimated value to an actual one. This lesson connects math to scientific applications and builds accuracy in interpreting results."
+            },
+            {
+              "title": "Mixture Problems",
+              "description": "Students apply fraction, ratio, and percent reasoning to situations where parts are combined, such as mixing solutions, ingredients, or class populations. They practice tracking parts and wholes carefully in multi-step word problems."
+            },
+            {
+              "title": "Density Problems",
+              "description": "Students apply proportional reasoning to the science formula density = mass ÷ volume. They solve for mass, volume, or density in different contexts, reinforcing connections between math and science."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Math Fundamentals: Factors and Ratios",
+      "grade_range": "Advanced 5th & 6th",
+      "estimated_duration": "~8 weeks",
+      "modules": [
+        {
+          "module": "Factors and Multiples",
+          "lessons": [
+            {
+              "title": "Prime and Composite Numbers",
+              "description": "Students classify whole numbers greater than or equal to 2 as prime or composite by examining their factors. They learn that primes have exactly two factors, composites have more, and 1 is neither prime nor composite. This builds a foundation for later work with factorization and divisibility."
+            },
+            {
+              "title": "Understanding Factors",
+              "description": "Students explore factors as numbers that multiply together to form another number. Using arrays, multiplication facts, and systematic listing, they identify factor pairs and begin to see the structure of numbers in terms of their divisors."
+            },
+            {
+              "title": "Finding All Factors",
+              "description": "Students practice generating complete lists of factors efficiently. They use strategies like pairing factors, testing divisibility rules, and stopping at the square root to ensure no factors are missed. This prepares them to work with greatest common factor."
+            },
+            {
+              "title": "Prime Factorization",
+              "description": "Students decompose numbers into products of prime factors using factor trees and express results in exponential form (e.g., 72 = 2³ × 3²). They verify correctness by multiplying factors back together, reinforcing the idea of primes as the building blocks of numbers."
+            },
+            {
+              "title": "Greatest Common Factor (GCF)",
+              "description": "Students determine the largest factor shared by two or more numbers by comparing factor lists or using prime factorization. They apply GCF to simplify ratios and fractions, showing how factor knowledge streamlines problem solving."
+            },
+            {
+              "title": "Least Common Multiple (LCM)",
+              "description": "Students calculate the smallest multiple two or more numbers share by listing multiples, building factor trees, or applying prime factorization. They apply LCM to solve problems about aligning cycles or finding common denominators."
+            }
+          ]
+        },
+        {
+          "module": "Ratios, Rates, and Proportions",
+          "lessons": [
+            {
+              "title": "Introduction to Ratios",
+              "description": "Students learn that ratios compare two quantities in a specific order and can be expressed in forms such as a:b, a to b, or a/b. They interpret ratios in contexts like recipes, class sizes, or scale comparisons, making clear connections to real life."
+            },
+            {
+              "title": "Working with Ratios",
+              "description": "Students practice scaling ratios up and down, maintaining the relationship between the two quantities. They build fluency in writing ratios consistently with correct units and interpreting ratio statements with precision."
+            },
+            {
+              "title": "Ratio Tables",
+              "description": "Students create and extend ratio tables to find missing values. They learn to scale values multiplicatively in both directions and use tables to structure proportional reasoning in a systematic way."
+            },
+            {
+              "title": "Visual Models for Ratios",
+              "description": "Students use visual tools such as bar models or strip diagrams to represent ratio relationships. These models help them solve part–part and part–whole problems while connecting concrete visual reasoning to symbolic ratio notation."
+            },
+            {
+              "title": "Calculating Unit Rates",
+              "description": "Students calculate unit rates by dividing one quantity by another, such as price per item or speed in miles per hour. They practice in contexts that include whole numbers, fractions, and compound units, reinforcing the role of division in rates."
+            },
+            {
+              "title": "Interpreting Unit Rates",
+              "description": "Students interpret unit rates as “per one” comparisons and explain their meaning in words. For example, $2 per apple means each apple costs two dollars. This ensures students understand unit rates conceptually rather than just computationally."
+            },
+            {
+              "title": "Comparing Unit Rates",
+              "description": "Students compare two or more rates by normalizing them to unit values or aligning denominators. They apply this reasoning to consumer decisions, travel speeds, or work efficiency, building skills for evaluating options in real-world contexts."
+            },
+            {
+              "title": "Proportional Reasoning with Tables",
+              "description": "Students extend ratio tables to solve proportional problems, including those requiring scaling by non-integer factors. They apply proportional reasoning to contexts like recipes, mixtures, and maps, strengthening their fluency with multiplicative thinking."
+            },
+            {
+              "title": "Scale Drawings and Scale Factor",
+              "description": "Students apply ratios and proportions to interpret scale drawings, blueprints, and maps. They calculate actual measures from scaled drawings or scaled measures from actual lengths, ensuring accurate unit conversions and connections to geometry."
+            },
+            {
+              "title": "Speed, Time, and Distance Problems",
+              "description": "Students solve problems using the formula distance = speed × time. They rearrange the relationship to solve for any of the three variables, applying proportional reasoning to meaningful real-world contexts like travel and motion."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Math Fundamentals: Expressions, Equations, and Inequalities",
+      "grade_range": "Advanced 6th & early 7th",
+      "estimated_duration": "~10–12 weeks",
+      "modules": [
+        {
+          "module": "Building Expressions",
+          "lessons": [
+            {
+              "title": "Variables and Variable Expressions",
+              "description": "Students are introduced to variables as symbols that represent unknown or changing numbers. They practice translating verbal phrases like “five more than a number” into algebraic expressions (x + 5) and recognize that variables make it possible to write general rules instead of single calculations."
+            },
+            {
+              "title": "Terms, Coefficients, and Constants",
+              "description": "Students break down algebraic expressions into their building blocks: terms, coefficients, and constants. By identifying parts such as 3x (a variable term with coefficient 3) and +7 (a constant), they learn how expressions are structured for later simplification."
+            },
+            {
+              "title": "Identifying Like Terms",
+              "description": "Students learn to recognize terms that have the same variable part and exponent, such as 2x and –5x, even if their coefficients differ. This prepares them to group and simplify expressions correctly without mixing unlike terms."
+            },
+            {
+              "title": "Combining Like Terms",
+              "description": "Students practice simplifying expressions by adding or subtracting the coefficients of like terms. They work with positive, negative, and fractional coefficients to see how this process shortens and clarifies expressions."
+            },
+            {
+              "title": "Understanding the Distributive Property",
+              "description": "Students explore why a(b + c) = ab + ac works by modeling with numbers and variables. They see how distribution connects multiplication to addition, laying the foundation for algebraic manipulation."
+            },
+            {
+              "title": "Distributing Positive Numbers",
+              "description": "Students apply the distributive property with positive multipliers, such as expanding 3(x + 4) to 3x + 12. They then simplify the resulting expressions step-by-step."
+            },
+            {
+              "title": "Distributing Negative Numbers",
+              "description": "Students extend distribution to negative multipliers, for example –2(x – 5) = –2x + 10. Careful attention is given to sign rules and why distribution still holds."
+            },
+            {
+              "title": "Simplifying Expressions",
+              "description": "Students combine distribution with like terms to reduce multi-step linear expressions. They learn to rewrite expressions in their simplest form, preparing for equation solving."
+            }
+          ]
+        },
+        {
+          "module": "Exponents and Scientific Notation",
+          "lessons": [
+            {
+              "title": "Understanding Exponents",
+              "description": "Students learn that exponents represent repeated multiplication. They identify the base and exponent in examples like 2³, where 2 is the base and 3 is the exponent, and connect this idea to multiplication patterns they already know."
+            },
+            {
+              "title": "Exponents as Repeated Multiplication",
+              "description": "Students rewrite products like 2 · 2 · 2 · 2 as 2⁴ and expand exponentials back to products. This reinforces the meaning of exponents by moving flexibly between exponential and expanded forms."
+            },
+            {
+              "title": "Reading and Writing Exponential Form",
+              "description": "Students practice translating numbers and simple algebraic expressions into exponential, expanded, and standard forms. They build fluency in moving between representations and checking their equivalence."
+            },
+            {
+              "title": "Order of Operations",
+              "description": "Students apply the order of operations (PEMDAS) including exponents to evaluate multi-step expressions. They practice simplifying consistently to ensure everyone reaches the same result."
+            },
+            {
+              "title": "Evaluating Expressions by Substitution",
+              "description": "Students substitute integer values into expressions (including those with exponents) and simplify step-by-step. This shows how variables stand for numbers and connects algebraic rules to actual calculations."
+            },
+            {
+              "title": "Product Rule for Exponents",
+              "description": "Students learn and justify the product rule a^m · a^n = a^(m+n). They connect the rule to counting factors in expanded form, reinforcing why the shortcut works."
+            },
+            {
+              "title": "Quotient Rule for Exponents",
+              "description": "Students learn the quotient rule a^m ÷ a^n = a^(m–n) and connect it to canceling common factors. They see why subtraction of exponents emerges naturally from simplification."
+            },
+            {
+              "title": "Power Rules for Exponents",
+              "description": "Students learn how to simplify powers of powers ( (a^m)^n = a^(mn) ) and distribute exponents across multiplication ( (ab)^n = a^n b^n ). They build fluency with layered exponent expressions."
+            },
+            {
+              "title": "Powers of Ten",
+              "description": "Students explore powers of ten, using place value to understand how multiplying or dividing by 10^n shifts digits left or right. They apply this for quick mental computation and estimation."
+            },
+            {
+              "title": "Scientific Notation Basics",
+              "description": "Students learn to write large or small numbers in scientific notation as c × 10^n with 1 ≤ c < 10. They interpret the coefficient and exponent, seeing how this format captures scale efficiently."
+            },
+            {
+              "title": "Converting to and from Scientific Notation",
+              "description": "Students practice rewriting numbers in and out of scientific notation. They compare magnitudes of very large and small numbers to see how scientific notation makes these comparisons easier."
+            },
+            {
+              "title": "Scientific Notation Applications",
+              "description": "Students apply scientific notation in real-world contexts, such as comparing astronomical distances or microscopic sizes. They compute with scientific notation to show its usefulness in science and technology."
+            }
+          ]
+        },
+        {
+          "module": "Equations and Equalities",
+          "lessons": [
+            {
+              "title": "Understanding Equations and Balance",
+              "description": "Students see an equation as a balanced statement, where both sides represent the same value. They test true/false cases by substitution and begin to reason about maintaining equality when solving."
+            },
+            {
+              "title": "Writing One-Variable Equations from Context",
+              "description": "Students translate short real-world scenarios into algebraic equations, such as comparing ages or splitting costs. This builds the bridge from word problems to symbolic representation."
+            },
+            {
+              "title": "Checking Solutions to Equations",
+              "description": "Students substitute proposed solutions into equations to verify correctness. They learn to interpret when a number satisfies an equation or when it fails."
+            },
+            {
+              "title": "Inverse Operations and the Properties of Equality",
+              "description": "Students use addition, subtraction, multiplication, and division properties of equality to isolate variables logically. They connect this process to the idea of “undoing” operations."
+            },
+            {
+              "title": "One-Step Addition and Subtraction Equations",
+              "description": "Students solve equations like x + a = b or x – a = b by isolating the variable with inverse operations. They check their answers to confirm correctness."
+            },
+            {
+              "title": "One-Step Multiplication and Division Equations",
+              "description": "Students solve equations like ax = b or x/a = b, applying multiplication or division properties. They verify results by substitution."
+            },
+            {
+              "title": "Two-Step Equations",
+              "description": "Students solve equations requiring two operations, such as 2x + 5 = 11. They learn to work in a logical sequence and check solutions consistently."
+            },
+            {
+              "title": "Multi-Step Equations with Like Terms",
+              "description": "Students solve equations that first require simplifying by combining like terms. They see how simplification makes solving clearer and more efficient."
+            },
+            {
+              "title": "Multi-Step Equations with the Distributive Property",
+              "description": "Students solve equations that require distributing before combining like terms and isolating the variable. This brings together multiple algebraic skills in sequence."
+            },
+            {
+              "title": "Equations with Variables on Both Sides",
+              "description": "Students solve equations that place variable terms on both sides. They recognize cases with one solution, no solution, or infinitely many solutions, building deeper understanding of equation structure."
+            }
+          ]
+        },
+        {
+          "module": "Inequalities and Solution Sets",
+          "lessons": [
+            {
+              "title": "Inequality Symbols and Meaning",
+              "description": "Students are introduced to inequality symbols (<, >, ≤, ≥) and the difference between strict and inclusive comparisons. They use real-world examples to understand when boundaries are included or excluded."
+            },
+            {
+              "title": "Reading and Writing Inequalities",
+              "description": "Students translate between verbal statements and inequality notation. They practice matching symbol direction to context, such as “at least 10” meaning ≥ 10."
+            },
+            {
+              "title": "One-Step Addition and Subtraction Inequalities",
+              "description": "Students solve inequalities of the form x ± a < b or ≤ b and graph the solution set on a number line. They interpret results as ranges rather than single answers."
+            },
+            {
+              "title": "One-Step Multiplication and Division Inequalities",
+              "description": "Students solve inequalities like ax > b, including cases where multiplying or dividing by a negative requires flipping the inequality symbol. They graph the solution set accurately."
+            },
+            {
+              "title": "Inequalities with Variables on Both Sides",
+              "description": "Students extend solving strategies to inequalities that require collecting terms on both sides. They recognize situations with one solution, no solution, or all real numbers as solutions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Math Fundamentals: Statistics and Probability",
+      "grade_range": "Advanced 7th & 8th",
+      "estimated_duration": "~12–14 weeks",
+      "modules": [
+        {
+          "module": "Describing Data with Measures of Center and Spread",
+          "lessons": [
+            {
+              "title": "Understanding Mean",
+              "description": "Students calculate the mean of a data set by dividing the total by the number of values. They connect this to the idea of equal sharing and balancing, seeing mean as a “fair share” value that represents all data points collectively."
+            },
+            {
+              "title": "Finding Median and Mode",
+              "description": "Students identify the median as the middle value and the mode as the most frequent value in a data set. They learn that these measures highlight different aspects of the data and remain stable even when extreme outliers are present."
+            },
+            {
+              "title": "Range and Outliers",
+              "description": "Students find the range of a data set by subtracting the smallest value from the largest. They also apply simple rules to detect outliers and interpret how unusually high or low values can distort summaries like mean and range."
+            },
+            {
+              "title": "Interquartile Range (IQR)",
+              "description": "Students divide a data set into four equal parts, calculate the interquartile range, and use it to describe the spread of the middle 50% of the data. They connect IQR to understanding consistency and variability in data."
+            },
+            {
+              "title": "Mean Absolute Deviation (MAD)",
+              "description": "Students calculate mean absolute deviation by measuring how far each data point is from the mean, then averaging these distances. They use MAD as a way to describe how consistent or spread out the data is."
+            }
+          ]
+        },
+        {
+          "module": "Graphical Displays of Data",
+          "lessons": [
+            {
+              "title": "Reading and Creating Box Plots",
+              "description": "Students create box plots from raw data and interpret their features, including quartiles, median, and whiskers. They use box plots to compare groups side by side and notice how outliers influence overall patterns."
+            },
+            {
+              "title": "Creating Dot Plots",
+              "description": "Students represent raw data with dot plots, placing dots above a number line with appropriate scaling. This helps them visualize frequency, clusters, and gaps at a glance."
+            },
+            {
+              "title": "Reading Dot Plots",
+              "description": "Students analyze dot plots to identify where most data points are concentrated, where gaps occur, and how individual values compare to the group. They connect these visual observations to summaries like mean and median."
+            },
+            {
+              "title": "Reading and Creating Histograms",
+              "description": "Students construct histograms by grouping data into bins and tallying frequencies. They interpret histogram shapes to identify distributions that are symmetric, skewed, or clustered, linking visual form to statistical meaning."
+            },
+            {
+              "title": "Drawing Conclusions from Data",
+              "description": "Students use graphs and numerical summaries to make supported conclusions about data. They discuss what the displays reveal clearly and where limitations exist, emphasizing critical thinking with statistics."
+            },
+            {
+              "title": "Choosing an Appropriate Measure of Center",
+              "description": "Students decide whether the mean or median best represents a data set, depending on whether the distribution is symmetric or skewed. They apply this reasoning to real-world contexts where outliers influence results."
+            },
+            {
+              "title": "Comparing Centers of Two Groups",
+              "description": "Students compare the typical values of two groups by examining their means and medians. They interpret what the difference means in context, such as comparing class test scores or survey results."
+            },
+            {
+              "title": "Comparing Spreads of Two Groups",
+              "description": "Students compare how variable two groups are by examining range, IQR, and MAD. They interpret whether the groups overlap substantially or differ meaningfully, applying this to contexts such as test results or experiment outcomes."
+            }
+          ]
+        },
+        {
+          "module": "Probability",
+          "lessons": [
+            {
+              "title": "Sample Spaces and Outcomes",
+              "description": "Students list all possible results of a simple experiment, such as flipping a coin or rolling a die. They use complete sample spaces to make sure every outcome is counted before calculating probabilities."
+            },
+            {
+              "title": "Simple Events",
+              "description": "Students calculate the probability of a single event by comparing favorable outcomes to total outcomes. They practice expressing probability as a fraction, decimal, and percent."
+            },
+            {
+              "title": "Experimental Probability",
+              "description": "Students estimate probabilities by conducting repeated trials and recording relative frequencies. They compare results across trials and recognize that more trials produce estimates closer to theoretical values."
+            },
+            {
+              "title": "Theoretical Probability",
+              "description": "Students calculate probabilities using reasoning about equally likely outcomes, then compare these to results from experiments. They discuss how chance variation explains differences between theory and practice."
+            },
+            {
+              "title": "Complementary Events",
+              "description": "Students learn that the probability of an event and its complement add to one. They practice using P(not A) = 1 – P(A) to quickly find missing probabilities and to check consistency of results."
+            },
+            {
+              "title": "Compound Events with AND",
+              "description": "Students calculate probabilities of two independent events both occurring by multiplying their individual probabilities. They apply this to scenarios like drawing cards or rolling dice in sequence."
+            },
+            {
+              "title": "Compound Events with OR",
+              "description": "Students calculate probabilities of either one event or another occurring by adding probabilities, subtracting overlaps when needed. They apply this reasoning to real-world contexts like surveys and games of chance."
+            },
+            {
+              "title": "Understanding Independence",
+              "description": "Students explore what it means for events to be independent, both conceptually and by using the rule P(A ∩ B) = P(A) × P(B). They apply this reasoning to determine whether real-world situations involve independent events."
+            },
+            {
+              "title": "Designing Simulations",
+              "description": "Students design simple simulations, such as spinners, dice, or random number generators, to model probability situations. They learn how to make assumptions that keep simulations realistic."
+            },
+            {
+              "title": "Running Simulations",
+              "description": "Students carry out simulations, record outcomes, and calculate probabilities from relative frequencies. They see how simulated results approximate theoretical expectations."
+            },
+            {
+              "title": "Using Simulations for Estimation",
+              "description": "Students repeat simulations many times to estimate probabilities. They observe how increasing the number of trials leads results to converge toward theoretical probabilities."
+            },
+            {
+              "title": "Basic Expected Value Concepts",
+              "description": "Students compute expected value by multiplying outcomes by their probabilities and summing the results. They interpret expected value as the long-run average outcome in games and experiments."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

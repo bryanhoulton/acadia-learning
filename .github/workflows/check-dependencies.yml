@@ -1,0 +1,88 @@
+name: Check Dependencies
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-dependencies:
+    name: check-dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "api/.python-version"
+
+      - name: Install API dependencies
+        run: uv sync
+        working-directory: api
+
+      - name: Export current API requirements
+        run: uv pip freeze > updated-requirements.txt
+        working-directory: api
+
+      - name: Compare API requirements
+        run: |
+          echo "🔍 Comparing API requirements..."
+          # Filter out editable install lines (starting with -e) as paths are environment-specific
+          grep -v "^-e file://" requirements.txt > requirements-filtered.txt || touch requirements-filtered.txt
+          grep -v "^-e file://" updated-requirements.txt > updated-requirements-filtered.txt || touch updated-requirements-filtered.txt
+          if diff requirements-filtered.txt updated-requirements-filtered.txt > diff-output.txt; then
+            echo "✅ API requirements are up to date"
+          else
+            echo "❌ API requirements are out of sync!"
+            echo ""
+            echo "📋 Differences found:"
+            echo "< = current requirements.txt"
+            echo "> = generated requirements"
+            echo ""
+            cat diff-output.txt
+            echo ""
+            echo "💡 To fix: run 'uv pip freeze > requirements.txt' in the api directory"
+            exit 1
+          fi
+        working-directory: api
+
+      - name: Install FFmpeg 7 dev libraries (for av)
+        run: |
+          sudo add-apt-repository -y ppa:ubuntuhandbook1/ffmpeg7
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libavfilter-dev libswscale-dev libswresample-dev pkg-config
+
+      - name: Install Agent dependencies
+        run: uv sync
+        working-directory: agent
+
+      - name: Export current Agent requirements
+        run: uv pip freeze > updated-requirements.txt
+        working-directory: agent
+
+      - name: Compare Agent requirements
+        run: |
+          echo "🔍 Comparing Agent requirements..."
+          # Filter out editable install lines (starting with -e) as paths are environment-specific
+          grep -v "^-e file://" requirements.txt > requirements-filtered.txt || touch requirements-filtered.txt
+          grep -v "^-e file://" updated-requirements.txt > updated-requirements-filtered.txt || touch updated-requirements-filtered.txt
+          if diff requirements-filtered.txt updated-requirements-filtered.txt > diff-output.txt; then
+            echo "✅ Agent requirements are up to date"
+          else
+            echo "❌ Agent requirements are out of sync!"
+            echo ""
+            echo "📋 Differences found:"
+            echo "< = current requirements.txt"
+            echo "> = generated requirements"
+            echo ""
+            cat diff-output.txt
+            echo ""
+            echo "💡 To fix: run 'uv pip freeze > requirements.txt' in the agent directory"
+            exit 1
+          fi
+        working-directory: agent

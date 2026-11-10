@@ -1,0 +1,8 @@
+---
+description: 
+globs: **/*test*.py
+alwaysApply: false
+---
+When testing, we don't care about testing code that isn't ours. We DO care about testing that our code connects properly to code that isn't ours, like other APIs.
+
+Tests shouldn't be too trivial and should always have a reason for making it. Bias towards testing code *written in this repo* or writing tests that verify longer, multi-part workflows.

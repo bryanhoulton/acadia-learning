@@ -1,0 +1,104 @@
+name: API Integration Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  api-integration-tests:
+    name: api-integration
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DJANGO_SECRET_KEY: ci-only-${{ github.run_id }}-${{ github.run_attempt }}
+      working-directory: api
+      FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+      TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      DEBUG: ${{ secrets.DEBUG }}
+      DB_NAME: test_db
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_PASSWORD: postgres
+      DB_USER: postgres
+      EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
+      POSTHOG_HOST: ${{ secrets.POSTHOG_HOST }}
+      POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+      LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      STRIPE_MONTHLY_PRICE_ID: ${{ secrets.STRIPE_MONTHLY_PRICE_ID }}
+      LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+      TWILIO_PHONE_NUMBER: ${{ secrets.TWILIO_PHONE_NUMBER }}
+      TWILIO_VERIFY_SID: ${{ secrets.TWILIO_VERIFY_SID }}
+      AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+      STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+      LIVEKIT_URL: ${{ secrets.LIVEKIT_URL }}
+      STRIPE_ANNUAL_PRICE_ID: ${{ secrets.STRIPE_ANNUAL_PRICE_ID }}
+      BRAINTRUST_PROJECT: ${{ secrets.BRAINTRUST_PROJECT }}
+      BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y redis-tools
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "api/.python-version"
+
+      - name: Install API dependencies
+        run: uv sync
+        working-directory: ${{ env.working-directory }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+          cache-dependency-path: portal/yarn.lock
+
+      - name: Install Portal dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: portal
+
+      - name: Run integration tests
+        run: uv run python manage.py test tests.integration -v 2 --tag integration --keepdb
+        working-directory: ${{ env.working-directory }}

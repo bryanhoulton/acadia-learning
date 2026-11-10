@@ -1,0 +1,8 @@
+---
+description: When dealing with the backend API and design decision associated.
+alwaysApply: false
+---
+
+In general, we want to keep the API simple and easy to use. We want to avoid over-engineering and over-complicating the API. We bias towards API views representing the data in the database closely, with minimal processing happening in the API layer.
+
+In the API layer, we want to verify permissions and other constraints on the data, but generally we want to avoid processing data in the API layer. Keep the API layer clean.
